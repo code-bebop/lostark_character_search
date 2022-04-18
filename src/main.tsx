@@ -1,10 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./Router";
 import "./reset.css";
+import { ThemeProvider } from "styled-components";
+import mainTheme from "./mainTheme";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter>
+    <ThemeProvider theme={mainTheme}>
+      <React.StrictMode>
+        <Router />
+      </React.StrictMode>
+    </ThemeProvider>
+  </BrowserRouter>
 );
