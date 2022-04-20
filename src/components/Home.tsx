@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const HomeBlock = styled.div`
@@ -31,10 +33,30 @@ const Input = styled.input`
 `;
 
 const Home = () => {
+  const [nickname, setNickname] = useState("");
+  const navigate = useNavigate();
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    navigate("/equiment", { state: { nickname } });
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNickname(e.target.value);
+  };
+
   return (
     <HomeBlock>
       <Title>로스트아크 캐릭터 정보 검색 웹</Title>
-      <Input type="text" placeholder="여기에 닉네임을 입력" />
+      <form onSubmit={onSubmit}>
+        <Input
+          type="text"
+          placeholder="여기에 닉네임을 입력"
+          onChange={onChange}
+          value={nickname}
+        />
+      </form>
     </HomeBlock>
   );
 };
