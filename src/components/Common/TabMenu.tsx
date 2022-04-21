@@ -28,9 +28,9 @@ const TabMenuBlock = styled.div`
 const TabMenu = () => {
   return (
     <TabMenuBlock>
-      <TabMenuLink to="/item/equipment">아이템</TabMenuLink>
-      <TabMenuLink to="/skill">스킬</TabMenuLink>
-      <TabMenuLink to="/anotherCharacter">다른 캐릭터</TabMenuLink>
+      <TabMenuLink to="/profile/item/equipment">아이템</TabMenuLink>
+      <TabMenuLink to="/profile/skill">스킬</TabMenuLink>
+      <TabMenuLink to="/profile/anotherCharacter">다른 캐릭터</TabMenuLink>
     </TabMenuBlock>
   );
 };

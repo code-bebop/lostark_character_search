@@ -4,7 +4,6 @@ import TabMenu from "../Common/TabMenu";
 const Item = () => {
   return (
     <>
-      <TabMenu />
       <Outlet />
     </>
   );

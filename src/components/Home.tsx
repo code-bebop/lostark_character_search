@@ -39,7 +39,7 @@ const Home = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    navigate("/item/equipment", { state: { nickname } });
+    navigate("/profile/item/equipment", { state: { nickname } });
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
