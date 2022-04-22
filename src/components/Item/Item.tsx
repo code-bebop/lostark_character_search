@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
-import TabMenu from "../Common/TabMenu";
+import ItemCategory from "./ItemCategory";
 
 const Item = () => {
   return (
     <>
+      <ItemCategory />
       <Outlet />
     </>
   );
