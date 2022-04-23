@@ -11,7 +11,7 @@ import Profile from "./components/Profile";
 import Skill from "./components/Skill/Skill";
 
 const Background = styled.div`
-  width: 1280px;
+  width: 1080px;
   height: 100vh;
   margin: auto;
   background-color: ${({ theme }) => theme.mainTheme.color.default};

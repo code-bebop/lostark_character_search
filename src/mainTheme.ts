@@ -18,7 +18,7 @@ const mainTheme = {
   font: {
     lead_24px: "bold 24px Inter",
     lead: "bold 20px Inter",
-    body: "regular 16px Inter",
+    body: "500 16px Inter",
   },
 };
 

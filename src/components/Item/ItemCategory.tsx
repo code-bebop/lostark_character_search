@@ -15,7 +15,7 @@ const ItemCategoryLink = styled(Link)`
     :after {
       content: "";
       margin: 0 16px;
-      border-left: 2px solid #fff;
+      border-left: 2px solid ${({ theme }) => theme.mainTheme.color.white};
     }
   }
 `;
