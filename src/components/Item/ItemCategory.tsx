@@ -6,6 +6,7 @@ const ItemCategoryBlock = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin-top: 40px;
+  margin-bottom: 60px;
 `;
 
 const ItemCategoryLink = styled(Link)`

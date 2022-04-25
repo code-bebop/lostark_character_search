@@ -12,7 +12,7 @@ import Skill from "./components/Skill/Skill";
 
 const Background = styled.div`
   width: 1080px;
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
   background-color: ${({ theme }) => theme.mainTheme.color.default};
 `;
