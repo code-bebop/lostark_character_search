@@ -37,7 +37,7 @@ export interface Basic {
 export interface EngravingEffect {
   name: string;
   value: string;
-  isReduced?: boolean;
+  isReduced: boolean;
 }
 
 export interface Plus {

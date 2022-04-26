@@ -1,4 +1,5 @@
 import axios, { AxiosError } from "axios";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -67,7 +68,7 @@ const EquipmentImage = styled.img<{ tier: string }>`
       case "에스더":
         return `linear-gradient(135deg,#0c2e2c,#2faba8)`;
       default:
-        return `linear-gradient(135deg,#05005C,#0E0D29)`;
+        return `linear-gradient(135deg,#0E0D29,#05005C)`;
     }
   }};
 `;
@@ -101,7 +102,41 @@ const EquipmentName = styled.p<{ tier: string }>`
 const EquipmentTripodList = styled.div``;
 
 const EquipmentTripodItem = styled.p`
-  font: ${({ theme }) => theme.mainTheme.font.body};
+  font: ${({ theme }) => theme.mainTheme.font.body_14px};
+  margin: 3px 0;
+`;
+
+const EquipmentEngraveOverviewBlock = styled.div`
+  width: 100%;
+  height: 200px;
+  margin-top: 50px;
+  border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
+  border-radius: 5px;
+`;
+
+const EquipmentEngraveOverviewTitle = styled.div`
+  padding: 23px 30px;
+  border-bottom: 1px solid ${({ theme }) => theme.mainTheme.color.white};
+  font: ${({ theme }) => theme.mainTheme.font.lead};
+`;
+
+const EquipmentEngraveOverviewList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  padding: 35px 40px 0;
+`;
+
+const EquipmentEngraveOverviewItem = styled.li<{ isReduced: boolean }>`
+  display: flex;
+  list-style: none;
+  font: ${({ theme }) => theme.mainTheme.font.body_14px};
+  font-weight: 600;
+  width: calc(100% / 5);
+  line-height: 1.8em;
+  p:first-child {
+    width: 65%;
+    color: ${({ isReduced }) => (isReduced ? `red` : `yellow`)};
+  }
 `;
 
 const EquipmentPartsList = [
@@ -121,6 +156,9 @@ const EquipmentPartsList = [
 ];
 
 const Equipment = () => {
+  const [equipmentEngraves, setEquipmentEngraves] = useState<EquipmentEngraves>(
+    {}
+  );
   const location = useLocation();
   const state = location.state as { nickname: string };
   const { data, error, isLoading, isError } = useQuery<
@@ -133,7 +171,6 @@ const Equipment = () => {
         `https://codebebop.xyz/lostark/profile/equipment?nickname=${state.nickname}`
       );
 
-      console.log(res.data);
       return res.data;
     },
     {
@@ -142,6 +179,46 @@ const Equipment = () => {
       cacheTime: Infinity,
     }
   );
+
+  interface EquipmentEngraves {
+    [key: string]: {
+      level: number;
+      isReduced: boolean;
+    };
+  }
+
+  useEffect(() => {
+    setEquipmentEngraves({});
+    const _equipmentEngraves: EquipmentEngraves = {};
+
+    data?.equipmentList.map((equipment, index) => {
+      if (!equipment.option?.engravingEffects) return;
+      Object.values(equipment.option.engravingEffects).forEach(
+        ({ name, value, isReduced }, index) => {
+          const level = Number(value);
+
+          !_equipmentEngraves[name]
+            ? (_equipmentEngraves[name] = { level, isReduced })
+            : (_equipmentEngraves[name].level += level);
+        }
+      );
+    });
+
+    const sortable = Object.entries(_equipmentEngraves)
+      .sort(([, { level: a }], [, { level: b }]) => b - a)
+      .reduce<EquipmentEngraves>((r, [k, v]) => ({ ...r, [k]: v }), {});
+    const sortable2 = Object.entries(sortable)
+      .sort(([, { isReduced: a }], [, { isReduced: b }]) => {
+        if (a && b) return 1;
+        if (a && !b) return 1;
+        if (!a && !b) return 1;
+        if (!a && b) return -1;
+        return 1;
+      })
+      .reduce<EquipmentEngraves>((r, [k, v]) => ({ ...r, [k]: v }), {});
+
+    setEquipmentEngraves(sortable2);
+  }, [data]);
 
   if (isLoading) {
     return <p>로딩 중 . . .</p>;
@@ -224,7 +301,31 @@ const Equipment = () => {
     );
   });
 
-  return <>{EquipmentList}</>;
+  const EquipmentEnvgraveOverview = (
+    <EquipmentEngraveOverviewBlock>
+      <EquipmentEngraveOverviewTitle>
+        <p>각인 활성도</p>
+      </EquipmentEngraveOverviewTitle>
+      <EquipmentEngraveOverviewList>
+        {Object.keys(equipmentEngraves).map((engraveName, index) => {
+          const { level, isReduced } = equipmentEngraves[engraveName];
+          return (
+            <EquipmentEngraveOverviewItem key={index} isReduced={isReduced}>
+              <p>{engraveName.split("활성도")[0]}</p>
+              <p>+{level}</p>
+            </EquipmentEngraveOverviewItem>
+          );
+        })}
+      </EquipmentEngraveOverviewList>
+    </EquipmentEngraveOverviewBlock>
+  );
+
+  return (
+    <>
+      <>{EquipmentList}</>
+      <>{EquipmentEnvgraveOverview}</>
+    </>
+  );
 };
 
 export default Equipment;

@@ -19,6 +19,7 @@ const mainTheme = {
     lead_24px: "bold 24px Inter",
     lead: "bold 20px Inter",
     body: "500 16px Inter",
+    body_14px: "500 14px Inter",
   },
 };
 
