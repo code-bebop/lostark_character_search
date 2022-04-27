@@ -4,7 +4,7 @@ import AnotherCharacter from "./components/AnotherCharacter/AnotherCharacter";
 import Home from "./components/Home";
 import Avatar from "./components/Item/Avatar";
 import Card from "./components/Item/Card";
-import Equipment from "./components/Item/Equipment";
+import Equipment from "./components/Item/Equipment/Equipment";
 import Item from "./components/Item/Item";
 import Jewel from "./components/Item/Jewel";
 import Profile from "./components/Profile";
