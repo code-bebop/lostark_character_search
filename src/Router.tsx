@@ -9,6 +9,7 @@ import Item from "./components/Item/Item";
 import Jewel from "./components/Item/Jewel";
 import Profile from "./components/Profile";
 import Skill from "./components/Skill/Skill";
+import { NicknameProvider } from "./context/nickname";
 
 const Background = styled.div`
   width: 1080px;
@@ -20,21 +21,23 @@ const Background = styled.div`
 
 const Router = () => {
   return (
-    <Background>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="profile" element={<Profile />}>
-          <Route path="item" element={<Item />}>
-            <Route path="equipment" element={<Equipment />} />
-            <Route path="avatar" element={<Avatar />} />
-            <Route path="jewel" element={<Jewel />} />
-            <Route path="card" element={<Card />} />
+    <NicknameProvider>
+      <Background>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="profile" element={<Profile />}>
+            <Route path="item" element={<Item />}>
+              <Route path="equipment" element={<Equipment />} />
+              <Route path="avatar" element={<Avatar />} />
+              <Route path="jewel" element={<Jewel />} />
+              <Route path="card" element={<Card />} />
+            </Route>
+            <Route path="skill" element={<Skill />} />
+            <Route path="anotherCharacter" element={<AnotherCharacter />} />
           </Route>
-          <Route path="skill" element={<Skill />} />
-          <Route path="anotherCharacter" element={<AnotherCharacter />} />
-        </Route>
-      </Routes>
-    </Background>
+        </Routes>
+      </Background>
+    </NicknameProvider>
   );
 };
 
