@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useNicknameDispatch } from "../context/nickname";
 
 const HomeBlock = styled.div`
   display: flex;
@@ -35,10 +36,12 @@ const Input = styled.input`
 const Home = () => {
   const [nickname, setNickname] = useState("");
   const navigate = useNavigate();
+  const dispatch = useNicknameDispatch();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    dispatch({ type: "NICKNAME/UPDATE", payload: nickname });
     navigate("/profile/item/equipment", { state: { nickname } });
   };
 

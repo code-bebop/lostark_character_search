@@ -10,6 +10,7 @@ import EquipmentList from "./EquipmentList";
 const Equipment = () => {
   const location = useLocation();
   const { nickname } = location.state as { nickname: string };
+  console.log(nickname);
   const { data, isLoading, isError } = useQuery<EquipmentResponse, AxiosError>(
     ["equipment", nickname],
     async () => {

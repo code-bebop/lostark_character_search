@@ -120,10 +120,10 @@ const EquipmentPartsList = [
 
 const EquipmentList = (data: EquipmentResponse) => {
   const _EquipmentList = data?.equipmentList.map((equipment, index) => {
-    console.log(equipment);
     const equipmentRarity = equipment.parts
       ? equipment.parts.split(" ")[0]
       : "";
+
     if (!equipment.name) {
       return (
         <EquipmentBlock key={index}>
