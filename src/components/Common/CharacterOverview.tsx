@@ -1,4 +1,8 @@
+import axios, { AxiosError } from "axios";
+import { useQuery } from "react-query";
 import styled from "styled-components";
+import { useNicknameState } from "../../context/nickname";
+import { InfoResponse } from "../../type/info";
 
 const CharacterOverViewBlock = styled.div`
   display: flex;
@@ -26,25 +30,59 @@ const CharacterLevelItem = styled.li`
 `;
 
 const CharacterOverView = () => {
+  const { nickname: _nickname } = useNicknameState();
+
+  const { data, isLoading, isError } = useQuery<InfoResponse, AxiosError>(
+    ["info", _nickname],
+    async () => {
+      const res = await axios.get(
+        `https://codebebop.xyz/lostark/profile/info?nickname=${_nickname}`
+      );
+
+      return res.data;
+    },
+    {
+      enabled: !!_nickname,
+      staleTime: 1000 * 60,
+      cacheTime: Infinity,
+    }
+  );
+
+  if (isLoading) {
+    return <p>로딩 중 . . .</p>;
+  }
+  if (typeof data === "undefined") {
+    return <p>데이터가 undefined인 상태입니다.</p>;
+  }
+  if (isError || data.result === "Error") {
+    return (
+      <>
+        <p>에러 발생</p>
+        <p>{data.result_error}</p>
+      </>
+    );
+  }
+
+  const { server, nickname, _class, level } = data.info;
   return (
     <CharacterOverViewBlock>
-      <CharacterInfo>아만 / 아르카나 / 모코코볼따구빠는소리</CharacterInfo>
+      <CharacterInfo>{` ${server} / ${_class} / ${nickname}`}</CharacterInfo>
       <CharacterLevelList>
         <CharacterLevelItem>
           <p>원정대 레벨</p>
-          <p>Lv. 116</p>
+          <p>{level.expedition}</p>
         </CharacterLevelItem>
         <CharacterLevelItem>
-          <p>원정대 레벨</p>
-          <p>Lv. 116</p>
+          <p>전투 레벨</p>
+          <p>{level.battle}</p>
         </CharacterLevelItem>
         <CharacterLevelItem>
-          <p>원정대 레벨</p>
-          <p>Lv. 116</p>
+          <p>달성 아이템 레벨</p>
+          <p>{level.gear.maxLevel}</p>
         </CharacterLevelItem>
         <CharacterLevelItem>
-          <p>원정대 레벨</p>
-          <p>Lv. 116</p>
+          <p>장착 아이템 레벨</p>
+          <p>{level.gear.level}</p>
         </CharacterLevelItem>
       </CharacterLevelList>
     </CharacterOverViewBlock>
