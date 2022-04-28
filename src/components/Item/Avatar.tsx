@@ -1,5 +1,10 @@
+import { useLocation } from "react-router-dom";
+
 const Avatar = () => {
-  return <p>Avatar</p>;
+  const { state } = useLocation();
+  const { nickname } = state as { nickname: string };
+
+  return <p>{`Avatar ${nickname}`}</p>;
 };
 
 export default Avatar;

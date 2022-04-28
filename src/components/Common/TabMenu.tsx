@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useNicknameState } from "../../context/nickname";
 
 const TabMenuLink = styled(Link)`
   flex: 1;
@@ -26,11 +27,19 @@ const TabMenuBlock = styled.div`
 `;
 
 const TabMenu = () => {
+  const { nickname } = useNicknameState();
+
   return (
     <TabMenuBlock>
-      <TabMenuLink to="/profile/item/equipment">아이템</TabMenuLink>
-      <TabMenuLink to="/profile/skill">스킬</TabMenuLink>
-      <TabMenuLink to="/profile/anotherCharacter">다른 캐릭터</TabMenuLink>
+      <TabMenuLink to="/profile/item/equipment" state={{ nickname }}>
+        아이템
+      </TabMenuLink>
+      <TabMenuLink to="/profile/skill" state={{ nickname }}>
+        스킬
+      </TabMenuLink>
+      <TabMenuLink to="/profile/anotherCharacter" state={{ nickname }}>
+        다른 캐릭터
+      </TabMenuLink>
     </TabMenuBlock>
   );
 };
