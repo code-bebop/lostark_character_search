@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useNicknameDispatch } from "../../context/nickname";
@@ -24,14 +24,18 @@ const CharacterSearchInput = styled.input`
 const CharacterSearchBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { nickname: locationNickname } = location.state as { nickname: string };
-  const [nickname, setNickname] = useState(locationNickname);
+  const [nickname, setNickname] = useState("");
+  useEffect(() => {
+    const { nickname: locationNickname } = location.state as {
+      nickname: string;
+    };
+    setNickname(locationNickname);
+  }, [location]);
   const dispatch = useNicknameDispatch();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log(nickname);
     dispatch({ type: "NICKNAME/UPDATE", payload: nickname });
     navigate("/profile/item/equipment", { state: { nickname } });
   };
