@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { EquipmentResponse } from "../../../type/equipment";
+import EquipmentOverlay from "./EquipmentOverlay";
 
 const EquipmentBlock = styled.div`
   display: flex;
@@ -40,6 +42,10 @@ const EquipmentWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-right: 80px;
+`;
+
+const EquipmentImageWrapper = styled.div`
+  position: relative;
 `;
 
 const EquipmentImage = styled.img<{ tier: string }>`
@@ -119,6 +125,16 @@ const EquipmentPartsList = [
 ];
 
 const EquipmentList = (data: EquipmentResponse) => {
+  const [showOverlay, setShowOverlay] = useState(
+    Array.from({ length: EquipmentPartsList.length }, () => false)
+  );
+  useEffect(() => {
+    setShowOverlay(() => {
+      showOverlay[0] = true;
+      return [...showOverlay];
+    });
+  }, []);
+
   const _EquipmentList = data?.equipmentList.map((equipment, index) => {
     const equipmentRarity = equipment.parts
       ? equipment.parts.split(" ")[0]
@@ -145,10 +161,25 @@ const EquipmentList = (data: EquipmentResponse) => {
           <EquipmentCategory>{EquipmentPartsList[index]}</EquipmentCategory>
         </EquipmentCategoryWrapper>
         <EquipmentWrapper>
-          <EquipmentImage
-            src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
-            tier={equipmentRarity}
-          />
+          <EquipmentImageWrapper>
+            <EquipmentImage
+              src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
+              tier={equipmentRarity}
+              onMouseEnter={() =>
+                setShowOverlay(() => {
+                  showOverlay[index] = true;
+                  return [...showOverlay];
+                })
+              }
+              onMouseLeave={() =>
+                setShowOverlay(() => {
+                  showOverlay[index] = false;
+                  return [...showOverlay];
+                })
+              }
+            />
+            {showOverlay[index] && <EquipmentOverlay />}
+          </EquipmentImageWrapper>
           <EquipmentName tier={equipmentRarity}>
             {equipment.upgrade === "0" ? "" : equipment.upgrade}{" "}
             {equipment.name}
