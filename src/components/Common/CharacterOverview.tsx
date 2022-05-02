@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useNicknameState } from "../../context/nickname";
 import { InfoResponse } from "../../type/info";
@@ -30,19 +31,20 @@ const CharacterLevelItem = styled.li`
 `;
 
 const CharacterOverView = () => {
-  const { nickname: _nickname } = useNicknameState();
+  const location = useLocation();
+  const { nickname: locationNickname } = location.state as { nickname: string };
 
   const { data, isLoading, isError } = useQuery<InfoResponse, AxiosError>(
-    ["info", _nickname],
+    ["info", locationNickname],
     async () => {
       const res = await axios.get(
-        `https://codebebop.xyz/lostark/profile/info?nickname=${_nickname}`
+        `https://codebebop.xyz/lostark/profile/info?nickname=${locationNickname}`
       );
 
       return res.data;
     },
     {
-      enabled: !!_nickname,
+      enabled: !!locationNickname,
       staleTime: 1000 * 60,
       cacheTime: Infinity,
     }
