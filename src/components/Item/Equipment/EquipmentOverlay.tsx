@@ -1,14 +1,17 @@
 import styled from "styled-components";
+import { EquipmentList } from "../../../type/equipment";
+import { EquipmentImage } from "./EquipmentList";
 
-const EquipmentOverlayBlock = styled.div`
+const EquipmentOverlayBlock = styled.div<{ set: Boolean }>`
   position: absolute;
   top: -50px;
   left: 90px;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: ${({ set }) => (set ? `1fr 1fr` : `1fr`)};
   grid-template-rows: auto 1fr;
   grid-gap: 45px 30px;
-  width: 650px;
+  width: max-content;
+  max-width: 800px;
   height: auto;
   padding: 40px 30px;
   background-color: ${({ theme }) => theme.mainTheme.color.default};
@@ -27,22 +30,33 @@ const EquipmentOverlayFirstGridR = styled.div`
   }
 `;
 
-const EquipmentOverlayImage = styled.div`
-  width: 64px;
-  height: 64px;
-  background-color: #fff;
-`;
-
-const EquipmentName = styled.p`
+const EquipmentName = styled.p<{ rarity: string }>`
   font: ${({ theme }) => theme.mainTheme.font.body};
   font-weight: bold;
-  color: ${({ theme }) => theme.mainTheme.color.rarity.legendary};
+  color: ${({ rarity, theme }) => {
+    switch (rarity) {
+      case "일반":
+        return theme.mainTheme.color.rarity.uncommon;
+      case "고급":
+        return theme.mainTheme.color.rarity.common;
+      case "희귀":
+        return theme.mainTheme.color.rarity.rare;
+      case "영웅":
+        return theme.mainTheme.color.rarity.epic;
+      case "전설":
+        return theme.mainTheme.color.rarity.legendary;
+      case "유물":
+        return theme.mainTheme.color.rarity.artifact;
+      case "고대":
+        return theme.mainTheme.color.rarity.ancient;
+      case "에스더":
+        return theme.mainTheme.color.rarity.esther;
+    }
+  }};
 `;
 
-const EquipmentPart = styled.p`
+const EquipmentPart = styled(EquipmentName)`
   font: ${({ theme }) => theme.mainTheme.font.body_14px};
-  font-weight: bold;
-  color: ${({ theme }) => theme.mainTheme.color.rarity.legendary};
 `;
 
 const EquipmentLevel = styled.p`
@@ -63,13 +77,22 @@ const EquipmentPartBox = styled.div`
     margin-top: 10px;
   }
 
-  p {
+  & > p {
     font: ${({ theme }) => theme.mainTheme.font.body_14px};
-
     &:first-child {
       font-weight: bold;
     }
+  }
+`;
 
+const EquipmentPartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  font: ${({ theme }) => theme.mainTheme.font.body_14px};
+  margin-left: 0.5em;
+  margin-top: 10px;
+
+  & > p {
     &:not(:first-child) {
       margin-top: 5px;
     }
@@ -80,62 +103,281 @@ const EquipmentThirdGrid = styled.div`
   grid-row: 1/3;
 `;
 
-const EquipmentOverlay = () => {
+const EquipmentSetEffectBox = styled(EquipmentPartBox)<{ isEnable: Boolean }>`
+  color: ${({ isEnable, theme }) =>
+    isEnable ? theme.mainTheme.color.white : theme.mainTheme.color.disable};
+  & > p {
+    &:first-child {
+      font-weight: ${({ isEnable }) => (isEnable ? `bold` : `normal`)};
+    }
+  }
+`;
+
+const EquipmentSetItem = styled.p<{ isEnable: Boolean }>`
+  color: ${({ isEnable, theme }) =>
+    isEnable ? theme.mainTheme.color.white : theme.mainTheme.color.disable};
+`;
+
+const EquipmentSetEffectWrapper = styled(EquipmentPartWrapper)`
+  color: inherit;
+  & > p {
+    word-break: keep-all;
+  }
+`;
+
+const EquipmentEstherBox = styled(EquipmentPartBox)``;
+
+const EquipmentEstherWrapper = styled(EquipmentPartWrapper)``;
+
+const EstherEffectItem = styled.p`
+  font: ${({ theme }) => theme.mainTheme.font.body_14px};
+  position: relative;
+  & > p {
+    word-break: keep-all;
+  }
+
+  &::before {
+    content: "•";
+    display: inline;
+    position: absolute;
+    left: -1em;
+    color: ${({ theme }) => theme.mainTheme.color.sub};
+  }
+`;
+
+const EquipmentOverlay = (equipment: EquipmentList) => {
+  const equipmentRarity = equipment.parts ? equipment.parts.split(" ")[0] : "";
+
+  const EquipmentOptionBasic = (
+    <>
+      <p>기본 효과</p>
+      <EquipmentPartWrapper>
+        {equipment.option && equipment.option.basic
+          ? Object.entries(equipment.option.basic).map(
+              ([optionname, optionvalue], index) => {
+                return <p key={index}>{`${optionname} ${optionvalue}`}</p>;
+              }
+            )
+          : null}
+      </EquipmentPartWrapper>
+    </>
+  );
+
+  const EquipmentOptionPlus = (
+    <>
+      <p>추가 효과</p>
+      <EquipmentPartWrapper>
+        {equipment.option && equipment.option.plus
+          ? Object.entries(equipment.option.plus).map(
+              ([optionname, optionvalue], index) => {
+                return <p key={index}>{`${optionname} ${optionvalue}`}</p>;
+              }
+            )
+          : null}
+      </EquipmentPartWrapper>
+    </>
+  );
+
+  const EquipmentTripodList = (
+    <>
+      <p>트라이포드 효과</p>
+      <EquipmentPartWrapper>
+        {equipment.option && equipment.option.tripod
+          ? Object.keys(equipment.option.tripod).map(
+              (equipmentTripodIndex, index) => {
+                return (
+                  <p key={index}>
+                    {`${
+                      equipment?.option?.tripod![equipmentTripodIndex].name
+                    } ${
+                      equipment?.option?.tripod![equipmentTripodIndex].level
+                    }`}
+                  </p>
+                );
+              }
+            )
+          : null}
+      </EquipmentPartWrapper>
+    </>
+  );
+
+  const EquipmentEngraveList = (
+    <>
+      <p>각인 효과</p>
+      <EquipmentPartWrapper>
+        {equipment.option && equipment.option.engravingEffects
+          ? Object.keys(equipment.option.engravingEffects).map(
+              (equipmentEngraveIndex, index) => {
+                return (
+                  <p key={index}>
+                    {`${
+                      equipment?.option?.engravingEffects![
+                        equipmentEngraveIndex
+                      ].name
+                    } ${
+                      equipment?.option?.engravingEffects![
+                        equipmentEngraveIndex
+                      ].value
+                    }`}
+                  </p>
+                );
+              }
+            )
+          : null}
+      </EquipmentPartWrapper>
+    </>
+  );
+
+  const EquipmentSetList =
+    equipment.set &&
+    equipment.set.setItemEnableList &&
+    equipment.set.setItemDisableList
+      ? [...equipment.set.setItemEnableList, equipment.set.setItemDisableList]
+          .flat()
+          .sort((a, b) => {
+            let aOrder = 0;
+            let bOrder = 0;
+
+            if (a.includes("머리")) aOrder = 0;
+            else if (a.includes("어깨")) aOrder = 1;
+            else if (a.includes("상의")) aOrder = 2;
+            else if (a.includes("하의")) aOrder = 3;
+            else if (a.includes("장갑")) aOrder = 4;
+            else aOrder = 5;
+
+            if (b.includes("머리")) bOrder = 0;
+            else if (b.includes("어깨")) bOrder = 1;
+            else if (b.includes("상의")) bOrder = 2;
+            else if (b.includes("하의")) bOrder = 3;
+            else if (b.includes("장갑")) bOrder = 4;
+            else bOrder = 5;
+
+            return aOrder - bOrder;
+          })
+          .map((setItem, index) => (
+            <EquipmentSetItem key={index} isEnable={setItem.includes("[")}>
+              {setItem}
+            </EquipmentSetItem>
+          ))
+      : null;
+
+  const EquipmentSetEffectList = equipment.set?.setEffect?.map(
+    (_setEffect, index) => {
+      const { setEffect, setEffectLevel, setEnable } = _setEffect;
+      return (
+        <EquipmentSetEffectBox key={index} isEnable={setEnable}>
+          <p>{setEffectLevel.replace("[", " [")}</p>
+          {Object.values(setEffect).map((setEffectLetter, index) => {
+            return (
+              <EquipmentSetEffectWrapper key={index}>
+                <p>{setEffectLetter}</p>
+              </EquipmentSetEffectWrapper>
+            );
+          })}
+        </EquipmentSetEffectBox>
+      );
+    }
+  );
+
+  const EquipmentBracletEffects =
+    equipment.option && equipment.option.braceletEffects ? (
+      <EquipmentPartBox>
+        <p>팔찌 효과</p>
+        <EquipmentPartWrapper>
+          {Object.values(equipment.option.braceletEffects).map(
+            (braceletEffect, index) => {
+              return (
+                <EstherEffectItem key={index}>
+                  {braceletEffect.map((braceletLetter, index) => {
+                    return <p key={index}>{braceletLetter}</p>;
+                  })}
+                </EstherEffectItem>
+              );
+            }
+          )}
+        </EquipmentPartWrapper>
+      </EquipmentPartBox>
+    ) : null;
+
+  const EstherEffectList = (
+    <EquipmentEstherBox>
+      <p>에스더 효과</p>
+      <EquipmentEstherWrapper>
+        {equipment.option?.esther
+          ? Object.values(equipment.option.esther).map((estherEffectList) => {
+              return (
+                <EstherEffectItem>
+                  {Object.values(estherEffectList).map(
+                    (estherEffect, index) => {
+                      return <p key={index}>{estherEffect}</p>;
+                    }
+                  )}
+                </EstherEffectItem>
+              );
+            })
+          : null}
+      </EquipmentEstherWrapper>
+    </EquipmentEstherBox>
+  );
+
   return (
-    <EquipmentOverlayBlock>
+    <EquipmentOverlayBlock set={equipment.set ? true : false}>
       <EquipmentOverlayFirstGrid>
-        <EquipmentOverlayImage />
+        <EquipmentImage
+          src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
+          tier={equipmentRarity}
+        />
         <EquipmentOverlayFirstGridR>
-          <EquipmentName>+15 예정된 결단의 머리장식</EquipmentName>
-          <EquipmentPart>전설 머리 방어구</EquipmentPart>
-          <EquipmentLevel>아이템 레벨 1615 (티어 3)</EquipmentLevel>
-          <EquipmentQuality>품질 100</EquipmentQuality>
+          <EquipmentName rarity={equipmentRarity}>
+            {equipment.name}
+          </EquipmentName>
+          <EquipmentPart rarity={equipmentRarity}>
+            {equipment.parts}
+          </EquipmentPart>
+          <EquipmentLevel>{equipment.level}</EquipmentLevel>
+          <EquipmentQuality>
+            {equipment.quality === -1 ? "" : `품질 ${equipment.quality}`}
+          </EquipmentQuality>
         </EquipmentOverlayFirstGridR>
       </EquipmentOverlayFirstGrid>
       <EquipmentSecondGrid>
         <EquipmentPartBox>
-          <p>기본 효과</p>
-          <p>힘 5326 민첩 2445 지능 3345 체력 21354</p>
+          {equipment.option && equipment.option.basic
+            ? EquipmentOptionBasic
+            : null}
         </EquipmentPartBox>
         <EquipmentPartBox>
-          <p>추가 효과</p>
-          <p>체력 2000</p>
+          {equipment.option && equipment.option.plus
+            ? EquipmentOptionPlus
+            : null}
         </EquipmentPartBox>
         <EquipmentPartBox>
-          <p>트라이포드 효과</p>
-          <p>스트림 오브 엣지 [다크니스 엣지] 3</p>
-          <p>포 카드 [신속한 준비] 3</p>
-          <p>댄싱 오브 스파인플라워 [치명적인 꽃] 3</p>
+          {equipment.option && equipment.option.tripod
+            ? EquipmentTripodList
+            : null}
+          {equipment.option && equipment.option.engravingEffects
+            ? EquipmentEngraveList
+            : null}
+          {equipment.option && equipment.option.braceletEffects
+            ? EquipmentBracletEffects
+            : null}
         </EquipmentPartBox>
       </EquipmentSecondGrid>
-      <EquipmentThirdGrid>
-        <EquipmentPartBox>
-          <p>선택 Lv.1</p>
-          <p>결단</p>
-        </EquipmentPartBox>
-        <EquipmentPartBox>
-          <p>2세트 효과</p>
-          <p>[Lv. 1]</p>
-          <p>
-            적을 타격 시 2초 마다 6초 동안 '태양의 힘' 효과 획득 태양의 힘:
-            치명타 적중률 3% 증가 (최대 5 중첩, '달의 힘'과 중복 적용되지 않음)
-          </p>
-        </EquipmentPartBox>
-        <EquipmentPartBox>
-          <p>5세트 효과</p>
-          <p>[Lv. 2]</p>
-          <p>
-            '태양의 힘' 5 중첩 시 '중천' 효과로 변경된다.'중천' 효과 발동 중
-            맹세 5세트로 발동되는 효과를 가지고 있는 파티원에게 3m 이내 접근 시
-            '개기 일식' 효과 획득 중천: 15초 동안 치명타 적중률 25% 증가 개기
-            일식: 15초 동안 치명타 적중률 25% 증가하며 치명타 피해가 50% 증가
-            '태양의 힘' 5 중첩 시 '중천' 효과로 변경된다.'중천' 효과 발동 중
-            맹세 5세트로 발동되는 효과를 가지고 있는 파티원에게 3m 이내 접근 시
-            '개기 일식' 효과 획득 중천: 15초 동안 치명타 적중률 25% 증가 개기
-            일식: 15초 동안 치명타 적중률 25% 증가하며 치명타 피해가 50% 증가
-          </p>
-        </EquipmentPartBox>
-      </EquipmentThirdGrid>
+      {equipment.set ? (
+        <EquipmentThirdGrid>
+          {equipment.option?.esther ? (
+            <>{EstherEffectList}</>
+          ) : (
+            <EquipmentPartBox>
+              <p>{equipment.set.setEnableOverview}</p>
+              <EquipmentSetEffectWrapper>
+                {EquipmentSetList}
+              </EquipmentSetEffectWrapper>
+            </EquipmentPartBox>
+          )}
+          {EquipmentSetEffectList}
+        </EquipmentThirdGrid>
+      ) : null}
     </EquipmentOverlayBlock>
   );
 };

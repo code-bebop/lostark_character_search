@@ -48,7 +48,7 @@ const EquipmentImageWrapper = styled.div`
   position: relative;
 `;
 
-const EquipmentImage = styled.img<{ tier: string }>`
+export const EquipmentImage = styled.img<{ tier: string }>`
   width: 64px;
   height: 64px;
   background: ${({ theme, tier }) => {
@@ -128,12 +128,6 @@ const EquipmentList = (data: EquipmentResponse) => {
   const [showOverlay, setShowOverlay] = useState(
     Array.from({ length: EquipmentPartsList.length }, () => false)
   );
-  useEffect(() => {
-    setShowOverlay(() => {
-      showOverlay[0] = true;
-      return [...showOverlay];
-    });
-  }, []);
 
   const _EquipmentList = data?.equipmentList.map((equipment, index) => {
     const equipmentRarity = equipment.parts
@@ -178,7 +172,7 @@ const EquipmentList = (data: EquipmentResponse) => {
                 })
               }
             />
-            {showOverlay[index] && <EquipmentOverlay />}
+            {showOverlay[index] && <EquipmentOverlay {...equipment} />}
           </EquipmentImageWrapper>
           <EquipmentName tier={equipmentRarity}>
             {equipment.upgrade === "0" ? "" : equipment.upgrade}{" "}
