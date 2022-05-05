@@ -1,30 +1,14 @@
-import axios, { AxiosError } from "axios";
-import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 
 import useEquipmentEngraves from "../../../hooks/useEquipmentEngraves";
-import { EquipmentResponse } from "../../../type/equipment";
+import useEquipmentQuery from "../../../hooks/useEquipmentQuery";
 import EquipmentEnvgraveOverview from "./EquipmentEnvgraveOverview";
 import EquipmentList from "./EquipmentList";
 
 const Equipment = () => {
   const location = useLocation();
   const { nickname } = location.state as { nickname: string };
-  const { data, isLoading, isError } = useQuery<EquipmentResponse, AxiosError>(
-    ["equipment", nickname],
-    async () => {
-      const res = await axios.get(
-        `https://codebebop.xyz/lostark/profile/equipment?nickname=${nickname}`
-      );
-
-      return res.data;
-    },
-    {
-      enabled: !!nickname,
-      staleTime: 1000 * 60,
-      cacheTime: Infinity,
-    }
-  );
+  const { data, isLoading, isError } = useEquipmentQuery(nickname);
 
   const equipmentEngraves = useEquipmentEngraves(data);
 
