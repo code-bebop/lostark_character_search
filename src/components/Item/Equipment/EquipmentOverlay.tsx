@@ -145,12 +145,13 @@ const EstherEffectItem = styled.p`
   }
 `;
 
-const EquipmentQualityWrapper = styled.div`
+const EquipmentQualityWrapper = styled.p`
   display: flex;
-  justify-content: center;
+  align-items: center;
+  font: ${({ theme }) => theme.mainTheme.font.body_14px};
 `;
 
-const EquipmentQualityBar = styled.div<{ quality: number }>`
+const EquipmentQualityBar = styled.span<{ quality: number }>`
   width: 130px;
   height: 15px;
   background-color: ${({ theme }) => theme.mainTheme.color.default};
@@ -193,7 +194,9 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
         {equipment.option && equipment.option.basic
           ? Object.entries(equipment.option.basic).map(
               ([optionname, optionvalue], index) => {
-                return <p key={index}>{`${optionname} ${optionvalue}`}</p>;
+                return (
+                  <span key={index}>{`${optionname} ${optionvalue}`}</span>
+                );
               }
             )
           : null}
@@ -208,7 +211,9 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
         {equipment.option && equipment.option.plus
           ? Object.entries(equipment.option.plus).map(
               ([optionname, optionvalue], index) => {
-                return <p key={index}>{`${optionname} ${optionvalue}`}</p>;
+                return (
+                  <span key={index}>{`${optionname} ${optionvalue}`}</span>
+                );
               }
             )
           : null}
@@ -224,13 +229,13 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
           ? Object.keys(equipment.option.tripod).map(
               (equipmentTripodIndex, index) => {
                 return (
-                  <p key={index}>
+                  <span key={index}>
                     {`${
                       equipment?.option?.tripod![equipmentTripodIndex].name
                     } ${
                       equipment?.option?.tripod![equipmentTripodIndex].level
                     }`}
-                  </p>
+                  </span>
                 );
               }
             )
@@ -247,7 +252,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
           ? Object.keys(equipment.option.engravingEffects).map(
               (equipmentEngraveIndex, index) => {
                 return (
-                  <p key={index}>
+                  <span key={index}>
                     {`${
                       equipment?.option?.engravingEffects![
                         equipmentEngraveIndex
@@ -257,7 +262,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
                         equipmentEngraveIndex
                       ].value
                     }`}
-                  </p>
+                  </span>
                 );
               }
             )
@@ -327,7 +332,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
               return (
                 <EstherEffectItem key={index}>
                   {braceletEffect.map((braceletLetter, index) => {
-                    return <p key={index}>{braceletLetter}</p>;
+                    return <span key={index}>{braceletLetter}</span>;
                   })}
                 </EstherEffectItem>
               );
@@ -347,7 +352,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
                 <EstherEffectItem>
                   {Object.values(estherEffectList).map(
                     (estherEffect, index) => {
-                      return <p key={index}>{estherEffect}</p>;
+                      return <span key={index}>{estherEffect}</span>;
                     }
                   )}
                 </EstherEffectItem>
@@ -360,7 +365,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
 
   const EquipmentQualityBlock = (
     <EquipmentQualityWrapper>
-      <p>{`품질 ${equipment.quality}`}</p>
+      <span>{`품질 ${equipment.quality}`}</span>
       <EquipmentQualityBar quality={equipment.quality} />
     </EquipmentQualityWrapper>
   );
@@ -380,9 +385,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
             {equipment.parts}
           </EquipmentPart>
           <EquipmentLevel>{equipment.level}</EquipmentLevel>
-          <EquipmentQuality>
-            {equipment.quality === -1 ? "" : EquipmentQualityBlock}
-          </EquipmentQuality>
+          {equipment.quality === -1 ? "" : EquipmentQualityBlock}
         </EquipmentOverlayFirstGridR>
       </EquipmentOverlayFirstGrid>
       <EquipmentSecondGrid>
