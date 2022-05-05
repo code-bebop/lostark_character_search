@@ -370,6 +370,23 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
     </EquipmentQualityWrapper>
   );
 
+  const EquipmentReforgeBonus = (
+    <>
+      <p>세공 단계 보너스</p>
+      {equipment.option && equipment.option.reforgeBonus ? (
+        <EquipmentPartWrapper>
+          {Object.entries(equipment.option.reforgeBonus).map(
+            ([reforgeBonusName, reforegeBonusValue], index) => (
+              <span
+                key={index}
+              >{`${reforgeBonusName} ${reforegeBonusValue}`}</span>
+            )
+          )}
+        </EquipmentPartWrapper>
+      ) : null}
+    </>
+  );
+
   return (
     <EquipmentOverlayBlock set={equipment.set ? true : false}>
       <EquipmentOverlayFirstGrid>
@@ -397,6 +414,9 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
         <EquipmentPartBox>
           {equipment.option && equipment.option.plus
             ? EquipmentOptionPlus
+            : null}
+          {equipment.option && equipment.option.reforgeBonus
+            ? EquipmentReforgeBonus
             : null}
         </EquipmentPartBox>
         <EquipmentPartBox>
