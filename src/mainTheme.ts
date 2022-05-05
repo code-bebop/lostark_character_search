@@ -4,6 +4,7 @@ const mainTheme = {
     white: "#F0F0F0",
     default: "#020028",
     sub: "#2D81FF",
+    disable: "#A6A2A2",
     rarity: {
       common: "#FFFFFF",
       uncommon: "#8DF901",

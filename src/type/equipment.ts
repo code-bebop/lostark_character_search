@@ -19,9 +19,10 @@ export interface Option {
   basic: Basic;
   plus?: Plus;
   tripod?: { [key: string]: Tripod };
-  esther?: { [key: string]: string };
+  esther?: { [key: string]: { [key: string]: string } };
   engravingEffects?: { [key: string]: EngravingEffect };
   reforgeBonus?: ReforgeBonus;
+  braceletEffects?: { [key: string]: string[] };
 }
 
 export interface Basic {
@@ -59,11 +60,14 @@ export interface Tripod {
 export interface Set {
   setItemEnableList?: string[];
   setItemDisableList?: string[];
+  setEnableOverview?: string;
   setEffect?: SetEffect[];
 }
 
 export interface SetEffect {
-  setEffect: string;
+  setEffect: {
+    [key: string]: string;
+  };
   setEffectLevel: string;
   setEnable: boolean;
 }

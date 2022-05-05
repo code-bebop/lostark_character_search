@@ -1,5 +1,7 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { EquipmentResponse } from "../../../type/equipment";
+import EquipmentOverlay from "./EquipmentOverlay";
 
 const EquipmentBlock = styled.div`
   display: flex;
@@ -42,7 +44,11 @@ const EquipmentWrapper = styled.div`
   margin-right: 80px;
 `;
 
-const EquipmentImage = styled.img<{ tier: string }>`
+const EquipmentImageWrapper = styled.div`
+  position: relative;
+`;
+
+export const EquipmentImage = styled.img<{ tier: string }>`
   width: 64px;
   height: 64px;
   background: ${({ theme, tier }) => {
@@ -74,9 +80,9 @@ const EquipmentName = styled.p<{ tier: string }>`
   color: ${({ theme, tier }) => {
     switch (tier) {
       case "일반":
-        return theme.mainTheme.color.rarity.uncommon;
-      case "고급":
         return theme.mainTheme.color.rarity.common;
+      case "고급":
+        return theme.mainTheme.color.rarity.uncommon;
       case "희귀":
         return theme.mainTheme.color.rarity.rare;
       case "영웅":
@@ -119,6 +125,10 @@ const EquipmentPartsList = [
 ];
 
 const EquipmentList = (data: EquipmentResponse) => {
+  const [showOverlay, setShowOverlay] = useState(
+    Array.from({ length: EquipmentPartsList.length }, () => false)
+  );
+
   const _EquipmentList = data?.equipmentList.map((equipment, index) => {
     const equipmentRarity = equipment.parts
       ? equipment.parts.split(" ")[0]
@@ -145,10 +155,25 @@ const EquipmentList = (data: EquipmentResponse) => {
           <EquipmentCategory>{EquipmentPartsList[index]}</EquipmentCategory>
         </EquipmentCategoryWrapper>
         <EquipmentWrapper>
-          <EquipmentImage
-            src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
-            tier={equipmentRarity}
-          />
+          <EquipmentImageWrapper>
+            <EquipmentImage
+              src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
+              tier={equipmentRarity}
+              onMouseEnter={() =>
+                setShowOverlay(() => {
+                  showOverlay[index] = true;
+                  return [...showOverlay];
+                })
+              }
+              onMouseLeave={() =>
+                setShowOverlay(() => {
+                  showOverlay[index] = false;
+                  return [...showOverlay];
+                })
+              }
+            />
+            {showOverlay[index] && <EquipmentOverlay {...equipment} />}
+          </EquipmentImageWrapper>
           <EquipmentName tier={equipmentRarity}>
             {equipment.upgrade === "0" ? "" : equipment.upgrade}{" "}
             {equipment.name}
