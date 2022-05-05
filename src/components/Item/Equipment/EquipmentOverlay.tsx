@@ -36,9 +36,9 @@ const EquipmentName = styled.p<{ rarity: string }>`
   color: ${({ rarity, theme }) => {
     switch (rarity) {
       case "일반":
-        return theme.mainTheme.color.rarity.uncommon;
-      case "고급":
         return theme.mainTheme.color.rarity.common;
+      case "고급":
+        return theme.mainTheme.color.rarity.uncommon;
       case "희귀":
         return theme.mainTheme.color.rarity.rare;
       case "영웅":
@@ -142,6 +142,44 @@ const EstherEffectItem = styled.p`
     position: absolute;
     left: -1em;
     color: ${({ theme }) => theme.mainTheme.color.sub};
+  }
+`;
+
+const EquipmentQualityWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const EquipmentQualityBar = styled.div<{ quality: number }>`
+  width: 130px;
+  height: 15px;
+  background-color: ${({ theme }) => theme.mainTheme.color.default};
+  border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
+  position: relative;
+  margin-left: 10px;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: ${({ quality }) => `${(quality / 100) * 128}px`};
+    height: 13px;
+    background-color: ${({ quality, theme }) => {
+      switch (~~(quality / 25)) {
+        case 0:
+          return "#FFDC26";
+        case 1:
+          return theme.mainTheme.color.rarity.uncommon;
+        case 2:
+          return theme.mainTheme.color.rarity.rare;
+        case 3:
+          return theme.mainTheme.color.rarity.epic;
+        case 4:
+          return theme.mainTheme.color.rarity.legendary;
+      }
+    }};
   }
 `;
 
@@ -320,6 +358,13 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
     </EquipmentEstherBox>
   );
 
+  const EquipmentQualityBlock = (
+    <EquipmentQualityWrapper>
+      <p>{`품질 ${equipment.quality}`}</p>
+      <EquipmentQualityBar quality={equipment.quality} />
+    </EquipmentQualityWrapper>
+  );
+
   return (
     <EquipmentOverlayBlock set={equipment.set ? true : false}>
       <EquipmentOverlayFirstGrid>
@@ -336,7 +381,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
           </EquipmentPart>
           <EquipmentLevel>{equipment.level}</EquipmentLevel>
           <EquipmentQuality>
-            {equipment.quality === -1 ? "" : `품질 ${equipment.quality}`}
+            {equipment.quality === -1 ? "" : EquipmentQualityBlock}
           </EquipmentQuality>
         </EquipmentOverlayFirstGridR>
       </EquipmentOverlayFirstGrid>

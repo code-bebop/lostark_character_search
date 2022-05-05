@@ -80,9 +80,9 @@ const EquipmentName = styled.p<{ tier: string }>`
   color: ${({ theme, tier }) => {
     switch (tier) {
       case "일반":
-        return theme.mainTheme.color.rarity.uncommon;
-      case "고급":
         return theme.mainTheme.color.rarity.common;
+      case "고급":
+        return theme.mainTheme.color.rarity.uncommon;
       case "희귀":
         return theme.mainTheme.color.rarity.rare;
       case "영웅":
