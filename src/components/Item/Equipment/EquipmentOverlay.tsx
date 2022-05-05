@@ -347,17 +347,19 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
       <p>에스더 효과</p>
       <EquipmentEstherWrapper>
         {equipment.option?.esther
-          ? Object.values(equipment.option.esther).map((estherEffectList) => {
-              return (
-                <EstherEffectItem>
-                  {Object.values(estherEffectList).map(
-                    (estherEffect, index) => {
-                      return <span key={index}>{estherEffect}</span>;
-                    }
-                  )}
-                </EstherEffectItem>
-              );
-            })
+          ? Object.values(equipment.option.esther).map(
+              (estherEffectList, index) => {
+                return (
+                  <EstherEffectItem key={index}>
+                    {Object.values(estherEffectList).map(
+                      (estherEffect, index) => {
+                        return <span key={index}>{estherEffect}</span>;
+                      }
+                    )}
+                  </EstherEffectItem>
+                );
+              }
+            )
           : null}
       </EquipmentEstherWrapper>
     </EquipmentEstherBox>
