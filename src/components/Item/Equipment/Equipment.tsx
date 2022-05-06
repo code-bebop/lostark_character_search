@@ -1,14 +1,14 @@
 import { useLocation } from "react-router-dom";
 
 import useEquipmentEngraves from "../../../hooks/useEquipmentEngraves";
-import useEquipmentQuery from "../../../hooks/useEquipmentQuery";
+import useProfileQuery from "../../../hooks/useProfileQuery";
 import EquipmentEnvgraveOverview from "./EquipmentEnvgraveOverview";
 import EquipmentList from "./EquipmentList";
 
 const Equipment = () => {
   const location = useLocation();
   const { nickname } = location.state as { nickname: string };
-  const { data, isLoading, isError } = useEquipmentQuery(nickname);
+  const { data, isLoading, isError } = useProfileQuery("equipment", nickname);
 
   const equipmentEngraves = useEquipmentEngraves(data);
 
