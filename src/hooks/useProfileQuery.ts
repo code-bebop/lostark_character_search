@@ -11,18 +11,21 @@ type ProfileQueryUrl =
   | "info"
   | "another";
 
-const getProfile = async (url: ProfileQueryUrl, nickname: string) => {
-  const { data } = await axios.get<EquipmentResponse>(
+const getProfile = async <ResponseT>(
+  url: ProfileQueryUrl,
+  nickname: string
+) => {
+  const { data } = await axios.get<ResponseT>(
     `https://codebebop.xyz/lostark/profile/${url}?nickname=${nickname}`
   );
 
   return data;
 };
 
-const useProfileQuery = (url: ProfileQueryUrl, nickname: string) => {
-  return useQuery<EquipmentResponse, AxiosError>(
+const useProfileQuery = <ResponseT>(url: ProfileQueryUrl, nickname: string) => {
+  return useQuery<ResponseT, AxiosError>(
     [url, nickname],
-    () => getProfile(url, nickname),
+    () => getProfile<ResponseT>(url, nickname),
     {
       enabled: !!nickname,
       staleTime: 1000 * 60,

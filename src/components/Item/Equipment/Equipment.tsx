@@ -3,13 +3,17 @@ import { useLocation } from "react-router-dom";
 import useEquipmentEngraves from "../../../hooks/useEquipmentEngraves";
 import useProfileQuery from "../../../hooks/useProfileQuery";
 import getProfileData from "../../../lib/getProfileData";
+import { EquipmentResponse } from "../../../type/equipment";
 import EquipmentEnvgraveOverview from "./EquipmentEnvgraveOverview";
 import EquipmentList from "./EquipmentList";
 
 const Equipment = () => {
   const location = useLocation();
   const { nickname } = location.state as { nickname: string };
-  const profileQuery = useProfileQuery("equipment", nickname);
+  const profileQuery = useProfileQuery<EquipmentResponse>(
+    "equipment",
+    nickname
+  );
 
   const data = getProfileData(profileQuery);
   const equipmentEngraves = useEquipmentEngraves(data);
