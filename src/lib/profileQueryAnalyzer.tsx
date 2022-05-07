@@ -1,13 +1,13 @@
 import { AxiosError } from "axios";
 import { UseQueryResult } from "react-query";
-import { EquipmentResponse } from "../type/equipment";
+import { BasicResponse } from "../type/basicResponse";
 
-const getProfileData = ({
+function profileQueryAnalyzer<ResponseT extends BasicResponse>({
   data,
   isLoading,
   isIdle,
   isError,
-}: UseQueryResult<EquipmentResponse, AxiosError<any, any>>) => {
+}: UseQueryResult<ResponseT, AxiosError<any, any>>) {
   if (isLoading || isIdle) {
     return <p>로딩 중 . . .</p>;
   }
@@ -24,6 +24,6 @@ const getProfileData = ({
   }
 
   return data;
-};
+}
 
-export default getProfileData;
+export default profileQueryAnalyzer;

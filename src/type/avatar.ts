@@ -1,6 +1,6 @@
-export interface AvatarResponse {
-  result: string;
-  result_error?: string;
+import { BasicResponse } from "./basicResponse";
+
+export interface AvatarResponse extends BasicResponse {
   avatarList: AvatarList[];
 }
 

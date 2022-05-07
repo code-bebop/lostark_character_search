@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { EquipmentResponse } from "../type/equipment";
 import { useQuery } from "react-query";
 
 type ProfileQueryUrl =

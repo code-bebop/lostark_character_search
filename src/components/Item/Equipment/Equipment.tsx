@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 
 import useEquipmentEngraves from "../../../hooks/useEquipmentEngraves";
 import useProfileQuery from "../../../hooks/useProfileQuery";
-import getProfileData from "../../../lib/getProfileData";
+import profileQueryAnalyzer from "../../../lib/profileQueryAnalyzer";
 import { EquipmentResponse } from "../../../type/equipment";
 import EquipmentEnvgraveOverview from "./EquipmentEnvgraveOverview";
 import EquipmentList from "./EquipmentList";
@@ -15,7 +15,7 @@ const Equipment = () => {
     nickname
   );
 
-  const data = getProfileData(profileQuery);
+  const data = profileQueryAnalyzer(profileQuery);
   const equipmentEngraves = useEquipmentEngraves(data);
 
   if (!("result" in data)) {

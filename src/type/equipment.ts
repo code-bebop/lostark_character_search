@@ -1,6 +1,6 @@
-export interface EquipmentResponse {
-  result: string;
-  result_error?: string;
+import { BasicResponse } from "./basicResponse";
+
+export interface EquipmentResponse extends BasicResponse {
   equipmentList: EquipmentList[];
 }
 

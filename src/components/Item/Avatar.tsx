@@ -1,13 +1,14 @@
 import { useLocation } from "react-router-dom";
 import useProfileQuery from "../../hooks/useProfileQuery";
-import getProfileData from "../../lib/getProfileData";
+import profileQueryAnalyzer from "../../lib/profileQueryAnalyzer";
+import { AvatarResponse } from "../../type/avatar";
 
 const Avatar = () => {
   const { state } = useLocation();
   const { nickname } = state as { nickname: string };
   const profileQuery = useProfileQuery<AvatarResponse>("avatar", nickname);
 
-  const data = getProfileData(profileQuery);
+  const data = profileQueryAnalyzer(profileQuery);
 
   if (!("result" in data)) {
     return data;
