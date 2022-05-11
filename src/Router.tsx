@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import AnotherCharacter from "./components/AnotherCharacter/AnotherCharacter";
 import Home from "./components/Home";
-import Avatar from "./components/Item/Avatar";
+import Avatar from "./components/Item/Avatar/Avatar";
 import Card from "./components/Item/Card";
 import Equipment from "./components/Item/Equipment/Equipment";
 import Item from "./components/Item/Item";

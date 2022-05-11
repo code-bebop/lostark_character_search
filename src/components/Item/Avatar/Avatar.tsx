@@ -1,7 +1,8 @@
 import { useLocation } from "react-router-dom";
-import useProfileQuery from "../../hooks/useProfileQuery";
-import profileQueryAnalyzer from "../../lib/profileQueryAnalyzer";
-import { AvatarResponse } from "../../type/avatar";
+import useProfileQuery from "../../../hooks/useProfileQuery";
+import profileQueryAnalyzer from "../../../lib/profileQueryAnalyzer";
+import { AvatarResponse } from "../../../type/avatar";
+import AvatarList from "./AvatarList";
 
 const Avatar = () => {
   const { state } = useLocation();
@@ -14,7 +15,11 @@ const Avatar = () => {
     return data;
   }
 
-  return <p>{`Avatar ${nickname}`}</p>;
+  return (
+    <>
+      <AvatarList {...data} />
+    </>
+  );
 };
 
 export default Avatar;

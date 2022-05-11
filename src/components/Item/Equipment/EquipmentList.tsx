@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
+import getItemRarity from "../../../lib/getItemRarity";
 import { EquipmentResponse } from "../../../type/equipment";
+import ItemImage from "../../Common/ItemImage";
 import EquipmentOverlay from "./EquipmentOverlay";
 
-const EquipmentBlock = styled.div`
+export const EquipmentBlock = styled.div`
   display: flex;
   align-items: center;
   height: 108px;
@@ -15,10 +17,9 @@ const EquipmentBlock = styled.div`
   }
 `;
 
-const EquipmentCategoryWrapper = styled.div`
+export const EquipmentCategoryWrapper = styled.div`
   position: relative;
   width: 11%;
-  margin-right: 60px;
   display: flex;
   justify-content: center;
 
@@ -33,7 +34,7 @@ const EquipmentCategoryWrapper = styled.div`
   }
 `;
 
-const EquipmentCategory = styled.p`
+export const EquipmentCategory = styled.p`
   font: ${({ theme }) => theme.mainTheme.font.lead};
 `;
 
@@ -48,34 +49,7 @@ const EquipmentImageWrapper = styled.div`
   position: relative;
 `;
 
-export const EquipmentImage = styled.img<{ tier: string }>`
-  width: 64px;
-  height: 64px;
-  background: ${({ theme, tier }) => {
-    switch (tier) {
-      case "일반":
-        return `linear-gradient(135deg,#232323,#575757)`;
-      case "고급":
-        return `linear-gradient(135deg,#18220b,#304911)`;
-      case "희귀":
-        return `linear-gradient(135deg,#111f2c,#113d5d)`;
-      case "영웅":
-        return `linear-gradient(135deg,#261331,#480d5d)`;
-      case "전설":
-        return `linear-gradient(135deg,#362003,#9e5f04)`;
-      case "유물":
-        return `linear-gradient(135deg,#341a09,#a24006)`;
-      case "고대":
-        return `linear-gradient(135deg,#3d3325,#dcc999)`;
-      case "에스더":
-        return `linear-gradient(135deg,#0c2e2c,#2faba8)`;
-      default:
-        return `linear-gradient(135deg,#0E0D29,#05005C)`;
-    }
-  }};
-`;
-
-const EquipmentName = styled.p<{ tier: string }>`
+export const EquipmentName = styled.p<{ tier: string }>`
   font: ${({ theme }) => theme.mainTheme.font.lead};
   color: ${({ theme, tier }) => {
     switch (tier) {
@@ -130,9 +104,7 @@ const EquipmentList = (data: EquipmentResponse) => {
   );
 
   const _EquipmentList = data?.equipmentList.map((equipment, index) => {
-    const equipmentRarity = equipment.parts
-      ? equipment.parts.split(" ")[0]
-      : "";
+    const equipmentRarity = getItemRarity(equipment.parts);
 
     if (!equipment.name) {
       return (
@@ -141,7 +113,7 @@ const EquipmentList = (data: EquipmentResponse) => {
             <EquipmentCategory>{EquipmentPartsList[index]}</EquipmentCategory>
           </EquipmentCategoryWrapper>
           <EquipmentWrapper>
-            <EquipmentImage tier={equipmentRarity} />
+            <ItemImage tier={equipmentRarity} />
             <EquipmentName tier={equipmentRarity}>없음</EquipmentName>
             <EquipmentTripodList />
           </EquipmentWrapper>
@@ -156,7 +128,7 @@ const EquipmentList = (data: EquipmentResponse) => {
         </EquipmentCategoryWrapper>
         <EquipmentWrapper>
           <EquipmentImageWrapper>
-            <EquipmentImage
+            <ItemImage
               src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
               tier={equipmentRarity}
               onMouseEnter={() =>
