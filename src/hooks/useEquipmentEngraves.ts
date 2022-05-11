@@ -9,7 +9,9 @@ export interface EquipmentEngraves {
   };
 }
 
-const useEquipmentEngraves = (data: EquipmentResponse | undefined) => {
+const useEquipmentEngraves = (
+  data: EquipmentResponse | JSX.Element | undefined
+) => {
   const [equipmentEngraves, setEquipmentEngraves] = useState<EquipmentEngraves>(
     {}
   );
@@ -19,6 +21,7 @@ const useEquipmentEngraves = (data: EquipmentResponse | undefined) => {
     const _equipmentEngraves: EquipmentEngraves = {};
 
     if (typeof data === "undefined") return;
+    if (!("result" in data)) return;
 
     data?.equipmentList.map((equipment, index) => {
       if (!equipment.option?.engravingEffects) return;

@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { EquipmentList } from "../../../type/equipment";
-import { EquipmentImage } from "./EquipmentList";
+import ItemImage from "../../Common/ItemImage";
 
 const EquipmentOverlayBlock = styled.div<{ set: Boolean }>`
   position: absolute;
   top: -50px;
-  left: 90px;
+  left: 150px;
   display: grid;
   grid-template-columns: ${({ set }) => (set ? `1fr 1fr` : `1fr`)};
   grid-template-rows: auto 1fr;
@@ -28,6 +28,10 @@ const EquipmentOverlayFirstGridR = styled.div`
   p:not(:first-child) {
     margin-top: 5px;
   }
+`;
+
+const EquipmentOverlayImage = styled(ItemImage)`
+  margin-left: 0;
 `;
 
 const EquipmentName = styled.p<{ rarity: string }>`
@@ -347,17 +351,19 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
       <p>에스더 효과</p>
       <EquipmentEstherWrapper>
         {equipment.option?.esther
-          ? Object.values(equipment.option.esther).map((estherEffectList) => {
-              return (
-                <EstherEffectItem>
-                  {Object.values(estherEffectList).map(
-                    (estherEffect, index) => {
-                      return <span key={index}>{estherEffect}</span>;
-                    }
-                  )}
-                </EstherEffectItem>
-              );
-            })
+          ? Object.values(equipment.option.esther).map(
+              (estherEffectList, index) => {
+                return (
+                  <EstherEffectItem key={index}>
+                    {Object.values(estherEffectList).map(
+                      (estherEffect, index) => {
+                        return <span key={index}>{estherEffect}</span>;
+                      }
+                    )}
+                  </EstherEffectItem>
+                );
+              }
+            )
           : null}
       </EquipmentEstherWrapper>
     </EquipmentEstherBox>
@@ -390,7 +396,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
   return (
     <EquipmentOverlayBlock set={equipment.set ? true : false}>
       <EquipmentOverlayFirstGrid>
-        <EquipmentImage
+        <EquipmentOverlayImage
           src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
           tier={equipmentRarity}
         />
