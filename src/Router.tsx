@@ -6,7 +6,7 @@ import Avatar from "./components/Item/Avatar/Avatar";
 import Card from "./components/Item/Card";
 import Equipment from "./components/Item/Equipment/Equipment";
 import Item from "./components/Item/Item";
-import Jewel from "./components/Item/Jewel";
+import Jewel from "./components/Item/Jewel/Jewel";
 import Profile from "./components/Profile";
 import Skill from "./components/Skill/Skill";
 import { NicknameProvider } from "./context/nickname";
