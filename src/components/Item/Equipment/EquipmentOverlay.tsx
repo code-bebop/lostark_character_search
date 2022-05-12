@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import getItemRarity from "../../../lib/getItemRarity";
 import { EquipmentList } from "../../../type/equipment";
 import ItemImage from "../../Common/ItemImage";
 
-const EquipmentOverlayBlock = styled.div<{ set: Boolean }>`
+export const EquipmentOverlayBlock = styled.div<{ set: Boolean }>`
   position: absolute;
   top: -50px;
   left: 150px;
@@ -18,11 +19,11 @@ const EquipmentOverlayBlock = styled.div<{ set: Boolean }>`
   border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
 `;
 
-const EquipmentOverlayFirstGrid = styled.div`
+export const EquipmentOverlayFirstGrid = styled.div`
   display: flex;
 `;
 
-const EquipmentOverlayFirstGridR = styled.div`
+export const EquipmentOverlayFirstGridR = styled.div`
   margin-left: 25px;
 
   p:not(:first-child) {
@@ -34,7 +35,7 @@ const EquipmentOverlayImage = styled(ItemImage)`
   margin-left: 0;
 `;
 
-const EquipmentName = styled.p<{ rarity: string }>`
+export const EquipmentName = styled.p<{ rarity: string }>`
   font: ${({ theme }) => theme.mainTheme.font.body};
   font-weight: bold;
   color: ${({ rarity, theme }) => {
@@ -59,7 +60,7 @@ const EquipmentName = styled.p<{ rarity: string }>`
   }};
 `;
 
-const EquipmentPart = styled(EquipmentName)`
+export const EquipmentPart = styled(EquipmentName)`
   font: ${({ theme }) => theme.mainTheme.font.body_14px};
 `;
 
@@ -71,12 +72,12 @@ const EquipmentQuality = styled.p`
   font: ${({ theme }) => theme.mainTheme.font.body_14px};
 `;
 
-const EquipmentSecondGrid = styled.div`
+export const EquipmentSecondGrid = styled.div`
   grid-column: 1/2;
   grid-row: 2/3;
 `;
 
-const EquipmentPartBox = styled.div`
+export const EquipmentPartBox = styled.div`
   &:not(:first-child) {
     margin-top: 10px;
   }
@@ -89,7 +90,7 @@ const EquipmentPartBox = styled.div`
   }
 `;
 
-const EquipmentPartWrapper = styled.div`
+export const EquipmentPartWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font: ${({ theme }) => theme.mainTheme.font.body_14px};
@@ -189,7 +190,7 @@ const EquipmentQualityBar = styled.span<{ quality: number }>`
 `;
 
 const EquipmentOverlay = (equipment: EquipmentList) => {
-  const equipmentRarity = equipment.parts ? equipment.parts.split(" ")[0] : "";
+  const equipmentRarity = getItemRarity(equipment.parts);
 
   const EquipmentOptionBasic = (
     <>
