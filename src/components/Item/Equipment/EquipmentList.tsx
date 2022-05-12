@@ -45,7 +45,7 @@ const EquipmentWrapper = styled.div`
   margin-right: 80px;
 `;
 
-const EquipmentImageWrapper = styled.div`
+export const EquipmentImageWrapper = styled.div`
   position: relative;
 `;
 

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import getItemRarity from "../../../lib/getItemRarity";
 import { AvatarResponse } from "../../../type/avatar";
@@ -6,8 +7,10 @@ import {
   EquipmentBlock,
   EquipmentCategory,
   EquipmentCategoryWrapper,
+  EquipmentImageWrapper,
   EquipmentName,
 } from "../Equipment/EquipmentList";
+import AvatarOverlay from "./AvatarOverlay";
 
 const AvatarBlock = styled(EquipmentBlock)``;
 
@@ -32,6 +35,10 @@ const AvatarPartsList = [
 ];
 
 const AvatarList = (data: AvatarResponse) => {
+  const [showOverlay, setShowOverlay] = useState(
+    Array.from({ length: AvatarPartsList.length }, () => false)
+  );
+
   return (
     <>
       {data.avatarList.map((avatar, index) => {
@@ -53,14 +60,30 @@ const AvatarList = (data: AvatarResponse) => {
             <AvatarCategoryWrapper>
               <AvatarCategory>{AvatarPartsList[index]}</AvatarCategory>
             </AvatarCategoryWrapper>
-            <AvatarImage
-              src={
-                avatar.image
-                  ? `https://cdn-lostark.game.onstove.com/${avatar.image}`
-                  : ""
-              }
-              tier={avatarRarity}
-            />
+            <EquipmentImageWrapper>
+              <AvatarImage
+                src={
+                  avatar.image
+                    ? `https://cdn-lostark.game.onstove.com/${avatar.image}`
+                    : ""
+                }
+                tier={avatarRarity}
+                onMouseEnter={() =>
+                  setShowOverlay(() => {
+                    showOverlay[index] = true;
+                    return [...showOverlay];
+                  })
+                }
+                onMouseLeave={() =>
+                  setShowOverlay(() => {
+                    showOverlay[index] = false;
+                    return [...showOverlay];
+                  })
+                }
+              />
+              {showOverlay[index] && <AvatarOverlay {...avatar} />}
+            </EquipmentImageWrapper>
+
             <EquipmentName tier={avatarRarity}>{avatar.name}</EquipmentName>
           </AvatarBlock>
         );
