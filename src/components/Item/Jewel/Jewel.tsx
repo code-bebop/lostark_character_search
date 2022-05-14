@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import useProfileQuery from "../../../hooks/useProfileQuery";
 import profileQueryAnalyzer from "../../../lib/profileQueryAnalyzer";
 import { JewelResponse } from "../../../type/jewel";
 import JewelList from "./JewelList";
+import JewelOverview from "./JewelOverview";
 
 const JewelBlock = styled.div`
   display: grid;
@@ -19,10 +21,6 @@ const JewelBlock = styled.div`
       grid-row-gap: 10px;
     }
   }
-`;
-
-const JewelOverview = styled.div`
-  border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
 `;
 
 const Jewel = () => {
@@ -43,7 +41,7 @@ const Jewel = () => {
           return <JewelList key={index} {...jewel} />;
         })}
       </div>
-      <JewelOverview></JewelOverview>
+      <JewelOverview {...data} />
     </JewelBlock>
   );
 };
