@@ -49,9 +49,9 @@ export const EquipmentImageWrapper = styled.div`
   position: relative;
 `;
 
-export const EquipmentName = styled.p<{ tier: string }>`
+export const EquipmentName = styled.p<{ rarity: string }>`
   font: ${({ theme }) => theme.mainTheme.font.lead};
-  color: ${({ theme, tier }) => {
+  color: ${({ theme, rarity: tier }) => {
     switch (tier) {
       case "일반":
         return theme.mainTheme.color.rarity.common;
@@ -113,8 +113,8 @@ const EquipmentList = (data: EquipmentResponse) => {
             <EquipmentCategory>{EquipmentPartsList[index]}</EquipmentCategory>
           </EquipmentCategoryWrapper>
           <EquipmentWrapper>
-            <ItemImage tier={equipmentRarity} />
-            <EquipmentName tier={equipmentRarity}>없음</EquipmentName>
+            <ItemImage rarity={equipmentRarity} />
+            <EquipmentName rarity={equipmentRarity}>없음</EquipmentName>
             <EquipmentTripodList />
           </EquipmentWrapper>
         </EquipmentBlock>
@@ -130,7 +130,7 @@ const EquipmentList = (data: EquipmentResponse) => {
           <EquipmentImageWrapper>
             <ItemImage
               src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
-              tier={equipmentRarity}
+              rarity={equipmentRarity}
               onMouseEnter={() =>
                 setShowOverlay(() => {
                   showOverlay[index] = true;
@@ -146,7 +146,7 @@ const EquipmentList = (data: EquipmentResponse) => {
             />
             {showOverlay[index] && <EquipmentOverlay {...equipment} />}
           </EquipmentImageWrapper>
-          <EquipmentName tier={equipmentRarity}>
+          <EquipmentName rarity={equipmentRarity}>
             {equipment.upgrade === "0" ? "" : equipment.upgrade}{" "}
             {equipment.name}
           </EquipmentName>

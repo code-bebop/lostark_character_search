@@ -50,8 +50,8 @@ const AvatarList = (data: AvatarResponse) => {
               <AvatarCategoryWrapper>
                 <AvatarCategory>{AvatarPartsList[index]}</AvatarCategory>
               </AvatarCategoryWrapper>
-              <AvatarImage tier={avatarRarity} />
-              <EquipmentName tier={avatarRarity}>없음</EquipmentName>
+              <AvatarImage rarity={avatarRarity} />
+              <EquipmentName rarity={avatarRarity}>없음</EquipmentName>
             </AvatarBlock>
           );
         }
@@ -67,7 +67,7 @@ const AvatarList = (data: AvatarResponse) => {
                     ? `https://cdn-lostark.game.onstove.com/${avatar.image}`
                     : ""
                 }
-                tier={avatarRarity}
+                rarity={avatarRarity}
                 onMouseEnter={() =>
                   setShowOverlay(() => {
                     showOverlay[index] = true;
@@ -84,7 +84,7 @@ const AvatarList = (data: AvatarResponse) => {
               {showOverlay[index] && <AvatarOverlay {...avatar} />}
             </EquipmentImageWrapper>
 
-            <EquipmentName tier={avatarRarity}>{avatar.name}</EquipmentName>
+            <EquipmentName rarity={avatarRarity}>{avatar.name}</EquipmentName>
           </AvatarBlock>
         );
       })}
