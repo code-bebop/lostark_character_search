@@ -37,9 +37,7 @@ const Jewel = () => {
   return (
     <JewelBlock>
       <div>
-        {data.jewelList.map((jewel, index) => {
-          return <JewelList key={index} {...jewel} />;
-        })}
+        <JewelList {...data} />
       </div>
       <JewelOverview {...data} />
     </JewelBlock>

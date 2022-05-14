@@ -4,15 +4,15 @@ import getItemRarity from "../../../lib/getItemRarity";
 import { AvatarList } from "../../../type/avatar";
 import ItemImage from "../../Common/ItemImage";
 import {
-  EquipmentName,
-  EquipmentOverlayBlock,
-  EquipmentOverlayFirstGrid,
-  EquipmentOverlayFirstGridR,
-  EquipmentPart,
-  EquipmentPartBox,
-  EquipmentPartWrapper,
-  EquipmentSecondGrid,
-} from "../Equipment/EquipmentOverlay";
+  ItemOverlayBlock,
+  ItemOverlayFirstGrid,
+  ItemOverlayFirstGridR,
+  ItemOverlayName,
+  ItemOverlayOptionBox,
+  ItemOverlayOptionWrapper,
+  ItemOverlayPart,
+  ItemOverlaySecondGrid,
+} from "../../Common/ItemOverlayBlock";
 
 const AvatarOverlayImage = styled(ItemImage)`
   margin-left: 0;
@@ -29,7 +29,7 @@ const AvatarTendencyWrapper = styled.div`
   }
 `;
 
-const AvatarTendencyBox = styled(EquipmentPartBox)`
+const AvatarTendencyBox = styled(ItemOverlayOptionBox)`
   & > p {
     margin-bottom: 10px;
   }
@@ -41,11 +41,11 @@ const AvatarOverlay = (avatar: AvatarList) => {
   const AvatarBasicOption = avatar.option.basic ? (
     <>
       <p>기본 효과</p>
-      <EquipmentPartWrapper>
+      <ItemOverlayOptionWrapper>
         <p>
           {avatar.option.basic.name} +{avatar.option.basic.value}
         </p>
-      </EquipmentPartWrapper>
+      </ItemOverlayOptionWrapper>
     </>
   ) : null;
 
@@ -60,27 +60,29 @@ const AvatarOverlay = (avatar: AvatarList) => {
   );
 
   return (
-    <EquipmentOverlayBlock set={false}>
-      <EquipmentOverlayFirstGrid>
+    <ItemOverlayBlock set={false}>
+      <ItemOverlayFirstGrid>
         <AvatarOverlayImage
           src={`https://cdn-lostark.game.onstove.com/${avatar.image}`}
-          tier={avatarRarity}
+          rarity={avatarRarity}
         />
-        <EquipmentOverlayFirstGridR>
-          <EquipmentName rarity={avatarRarity}>{avatar.name}</EquipmentName>
-          <EquipmentPart rarity={avatarRarity}>{avatar.parts}</EquipmentPart>
-        </EquipmentOverlayFirstGridR>
-      </EquipmentOverlayFirstGrid>
-      <EquipmentSecondGrid>
-        <EquipmentPartBox>
+        <ItemOverlayFirstGridR>
+          <ItemOverlayName rarity={avatarRarity}>{avatar.name}</ItemOverlayName>
+          <ItemOverlayPart rarity={avatarRarity}>
+            {avatar.parts}
+          </ItemOverlayPart>
+        </ItemOverlayFirstGridR>
+      </ItemOverlayFirstGrid>
+      <ItemOverlaySecondGrid>
+        <ItemOverlayOptionBox>
           {avatar.option.basic ? AvatarBasicOption : null}
-        </EquipmentPartBox>
+        </ItemOverlayOptionBox>
         <AvatarTendencyBox>
           <p>성향</p>
           <AvatarTendencyWrapper>{AvatarTendencyOption}</AvatarTendencyWrapper>
         </AvatarTendencyBox>
-      </EquipmentSecondGrid>
-    </EquipmentOverlayBlock>
+      </ItemOverlaySecondGrid>
+    </ItemOverlayBlock>
   );
 };
 

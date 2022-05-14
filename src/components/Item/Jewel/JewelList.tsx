@@ -1,19 +1,21 @@
+import { useState } from "react";
 import styled from "styled-components";
 import getItemRarity from "../../../lib/getItemRarity";
-import { JewelListT } from "../../../type/jewel";
+import { JewelResponse } from "../../../type/jewel";
 import ItemImage from "../../Common/ItemImage";
 import {
   EquipmentBlock,
   EquipmentCategory,
   EquipmentImageWrapper,
 } from "../Equipment/EquipmentList";
+import JewelOverlay from "./JewelOverlay";
 
 const JewelListBlock = styled(EquipmentBlock)`
   margin: 0;
   justify-content: center;
 `;
 
-const JewelImage = styled(ItemImage)`
+export const JewelImage = styled(ItemImage)`
   margin-left: 0;
   margin-right: 25px;
 `;
@@ -26,22 +28,48 @@ const JewelName = styled.div`
   height: 64px;
 `;
 
-const JewelList = ({ name, grade, tier, effect, image }: JewelListT) => {
-  const rarity = getItemRarity(grade);
+const JewelList = (data: JewelResponse) => {
+  const [showOverlay, setShowOverlay] = useState(
+    Array.from({ length: data.jewelList.length }, () => false)
+  );
 
   return (
-    <JewelListBlock>
-      <EquipmentImageWrapper>
-        <JewelImage
-          src={`https://cdn-lostark.game.onstove.com/${image}`}
-          tier={rarity}
-        />
-      </EquipmentImageWrapper>
-      <JewelName>
-        <EquipmentCategory>{name.match(/(홍염)|(멸화)/g)}</EquipmentCategory>
-        <EquipmentCategory>{name.split(" ")[0]}</EquipmentCategory>
-      </JewelName>
-    </JewelListBlock>
+    <>
+      {data.jewelList.map((jewel, index) => {
+        const { name, grade, image } = jewel;
+        const rarity = getItemRarity(grade);
+
+        return (
+          <JewelListBlock key={index}>
+            <EquipmentImageWrapper>
+              <JewelImage
+                src={`https://cdn-lostark.game.onstove.com/${image}`}
+                rarity={rarity}
+                onMouseEnter={() =>
+                  setShowOverlay(() => {
+                    showOverlay[index] = true;
+                    return [...showOverlay];
+                  })
+                }
+                onMouseLeave={() =>
+                  setShowOverlay(() => {
+                    showOverlay[index] = false;
+                    return [...showOverlay];
+                  })
+                }
+              />
+              {showOverlay[index] && <JewelOverlay {...jewel} />}
+            </EquipmentImageWrapper>
+            <JewelName>
+              <EquipmentCategory>
+                {name.match(/(홍염)|(멸화)/g)}
+              </EquipmentCategory>
+              <EquipmentCategory>{name.split(" ")[0]}</EquipmentCategory>
+            </JewelName>
+          </JewelListBlock>
+        );
+      })}
+    </>
   );
 };
 

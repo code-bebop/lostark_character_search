@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const ItemImage = styled.img<{ tier: string }>`
+const ItemImage = styled.img<{ rarity: string }>`
   width: 64px;
   height: 64px;
   margin-left: 60px;
-  background: ${({ tier }) => {
+  background: ${({ rarity: tier }) => {
     switch (tier) {
       case "일반":
         return `linear-gradient(135deg,#232323,#575757)`;

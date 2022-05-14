@@ -2,113 +2,29 @@ import styled from "styled-components";
 import getItemRarity from "../../../lib/getItemRarity";
 import { EquipmentList } from "../../../type/equipment";
 import ItemImage from "../../Common/ItemImage";
-
-export const EquipmentOverlayBlock = styled.div<{ set: Boolean }>`
-  position: absolute;
-  top: -50px;
-  left: 150px;
-  display: grid;
-  grid-template-columns: ${({ set }) => (set ? `1fr 1fr` : `1fr`)};
-  grid-template-rows: auto 1fr;
-  grid-gap: 45px 30px;
-  width: max-content;
-  max-width: 800px;
-  height: auto;
-  padding: 40px 30px;
-  background-color: ${({ theme }) => theme.mainTheme.color.default};
-  border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
-`;
-
-export const EquipmentOverlayFirstGrid = styled.div`
-  display: flex;
-`;
-
-export const EquipmentOverlayFirstGridR = styled.div`
-  margin-left: 25px;
-
-  p:not(:first-child) {
-    margin-top: 5px;
-  }
-`;
+import {
+  ItemOverlayBlock,
+  ItemOverlayFirstGrid,
+  ItemOverlayFirstGridR,
+  ItemOverlayLevel,
+  ItemOverlayName,
+  ItemOverlayOptionBox,
+  ItemOverlayOptionWrapper,
+  ItemOverlayPart,
+  ItemOverlaySecondGrid,
+} from "../../Common/ItemOverlayBlock";
 
 const EquipmentOverlayImage = styled(ItemImage)`
   margin-left: 0;
-`;
-
-export const EquipmentName = styled.p<{ rarity: string }>`
-  font: ${({ theme }) => theme.mainTheme.font.body};
-  font-weight: bold;
-  color: ${({ rarity, theme }) => {
-    switch (rarity) {
-      case "일반":
-        return theme.mainTheme.color.rarity.common;
-      case "고급":
-        return theme.mainTheme.color.rarity.uncommon;
-      case "희귀":
-        return theme.mainTheme.color.rarity.rare;
-      case "영웅":
-        return theme.mainTheme.color.rarity.epic;
-      case "전설":
-        return theme.mainTheme.color.rarity.legendary;
-      case "유물":
-        return theme.mainTheme.color.rarity.artifact;
-      case "고대":
-        return theme.mainTheme.color.rarity.ancient;
-      case "에스더":
-        return theme.mainTheme.color.rarity.esther;
-    }
-  }};
-`;
-
-export const EquipmentPart = styled(EquipmentName)`
-  font: ${({ theme }) => theme.mainTheme.font.body_14px};
-`;
-
-const EquipmentLevel = styled.p`
-  font: ${({ theme }) => theme.mainTheme.font.body_14px};
-`;
-
-const EquipmentQuality = styled.p`
-  font: ${({ theme }) => theme.mainTheme.font.body_14px};
-`;
-
-export const EquipmentSecondGrid = styled.div`
-  grid-column: 1/2;
-  grid-row: 2/3;
-`;
-
-export const EquipmentPartBox = styled.div`
-  &:not(:first-child) {
-    margin-top: 10px;
-  }
-
-  & > p {
-    font: ${({ theme }) => theme.mainTheme.font.body_14px};
-    &:first-child {
-      font-weight: bold;
-    }
-  }
-`;
-
-export const EquipmentPartWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  font: ${({ theme }) => theme.mainTheme.font.body_14px};
-  margin-left: 0.5em;
-  margin-top: 10px;
-
-  & > p {
-    &:not(:first-child) {
-      margin-top: 5px;
-    }
-  }
 `;
 
 const EquipmentThirdGrid = styled.div`
   grid-row: 1/3;
 `;
 
-const EquipmentSetEffectBox = styled(EquipmentPartBox)<{ isEnable: Boolean }>`
+const EquipmentSetEffectBox = styled(ItemOverlayOptionBox)<{
+  isEnable: Boolean;
+}>`
   color: ${({ isEnable, theme }) =>
     isEnable ? theme.mainTheme.color.white : theme.mainTheme.color.disable};
   & > p {
@@ -123,16 +39,16 @@ const EquipmentSetItem = styled.p<{ isEnable: Boolean }>`
     isEnable ? theme.mainTheme.color.white : theme.mainTheme.color.disable};
 `;
 
-const EquipmentSetEffectWrapper = styled(EquipmentPartWrapper)`
+const EquipmentSetEffectWrapper = styled(ItemOverlayOptionWrapper)`
   color: inherit;
   & > p {
     word-break: keep-all;
   }
 `;
 
-const EquipmentEstherBox = styled(EquipmentPartBox)``;
+const EquipmentEstherBox = styled(ItemOverlayOptionBox)``;
 
-const EquipmentEstherWrapper = styled(EquipmentPartWrapper)``;
+const EquipmentEstherWrapper = styled(ItemOverlayOptionWrapper)``;
 
 const EstherEffectItem = styled.p`
   font: ${({ theme }) => theme.mainTheme.font.body_14px};
@@ -195,7 +111,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
   const EquipmentOptionBasic = (
     <>
       <p>기본 효과</p>
-      <EquipmentPartWrapper>
+      <ItemOverlayOptionWrapper>
         {equipment.option && equipment.option.basic
           ? Object.entries(equipment.option.basic).map(
               ([optionname, optionvalue], index) => {
@@ -205,14 +121,14 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
               }
             )
           : null}
-      </EquipmentPartWrapper>
+      </ItemOverlayOptionWrapper>
     </>
   );
 
   const EquipmentOptionPlus = (
     <>
       <p>추가 효과</p>
-      <EquipmentPartWrapper>
+      <ItemOverlayOptionWrapper>
         {equipment.option && equipment.option.plus
           ? Object.entries(equipment.option.plus).map(
               ([optionname, optionvalue], index) => {
@@ -222,14 +138,14 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
               }
             )
           : null}
-      </EquipmentPartWrapper>
+      </ItemOverlayOptionWrapper>
     </>
   );
 
   const EquipmentTripodList = (
     <>
       <p>트라이포드 효과</p>
-      <EquipmentPartWrapper>
+      <ItemOverlayOptionWrapper>
         {equipment.option && equipment.option.tripod
           ? Object.keys(equipment.option.tripod).map(
               (equipmentTripodIndex, index) => {
@@ -245,14 +161,14 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
               }
             )
           : null}
-      </EquipmentPartWrapper>
+      </ItemOverlayOptionWrapper>
     </>
   );
 
   const EquipmentEngraveList = (
     <>
       <p>각인 효과</p>
-      <EquipmentPartWrapper>
+      <ItemOverlayOptionWrapper>
         {equipment.option && equipment.option.engravingEffects
           ? Object.keys(equipment.option.engravingEffects).map(
               (equipmentEngraveIndex, index) => {
@@ -272,7 +188,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
               }
             )
           : null}
-      </EquipmentPartWrapper>
+      </ItemOverlayOptionWrapper>
     </>
   );
 
@@ -329,9 +245,9 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
 
   const EquipmentBracletEffects =
     equipment.option && equipment.option.braceletEffects ? (
-      <EquipmentPartBox>
+      <ItemOverlayOptionBox>
         <p>팔찌 효과</p>
-        <EquipmentPartWrapper>
+        <ItemOverlayOptionWrapper>
           {Object.values(equipment.option.braceletEffects).map(
             (braceletEffect, index) => {
               return (
@@ -343,8 +259,8 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
               );
             }
           )}
-        </EquipmentPartWrapper>
-      </EquipmentPartBox>
+        </ItemOverlayOptionWrapper>
+      </ItemOverlayOptionBox>
     ) : null;
 
   const EstherEffectList = (
@@ -381,7 +297,7 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
     <>
       <p>세공 단계 보너스</p>
       {equipment.option && equipment.option.reforgeBonus ? (
-        <EquipmentPartWrapper>
+        <ItemOverlayOptionWrapper>
           {Object.entries(equipment.option.reforgeBonus).map(
             ([reforgeBonusName, reforegeBonusValue], index) => (
               <span
@@ -389,44 +305,44 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
               >{`${reforgeBonusName} ${reforegeBonusValue}`}</span>
             )
           )}
-        </EquipmentPartWrapper>
+        </ItemOverlayOptionWrapper>
       ) : null}
     </>
   );
 
   return (
-    <EquipmentOverlayBlock set={equipment.set ? true : false}>
-      <EquipmentOverlayFirstGrid>
+    <ItemOverlayBlock set={equipment.set ? true : false}>
+      <ItemOverlayFirstGrid>
         <EquipmentOverlayImage
           src={`https://cdn-lostark.game.onstove.com/${equipment.image}`}
-          tier={equipmentRarity}
+          rarity={equipmentRarity}
         />
-        <EquipmentOverlayFirstGridR>
-          <EquipmentName rarity={equipmentRarity}>
+        <ItemOverlayFirstGridR>
+          <ItemOverlayName rarity={equipmentRarity}>
             {equipment.name}
-          </EquipmentName>
-          <EquipmentPart rarity={equipmentRarity}>
+          </ItemOverlayName>
+          <ItemOverlayPart rarity={equipmentRarity}>
             {equipment.parts}
-          </EquipmentPart>
-          <EquipmentLevel>{equipment.level}</EquipmentLevel>
+          </ItemOverlayPart>
+          <ItemOverlayLevel>{equipment.level}</ItemOverlayLevel>
           {equipment.quality === -1 ? "" : EquipmentQualityBlock}
-        </EquipmentOverlayFirstGridR>
-      </EquipmentOverlayFirstGrid>
-      <EquipmentSecondGrid>
-        <EquipmentPartBox>
+        </ItemOverlayFirstGridR>
+      </ItemOverlayFirstGrid>
+      <ItemOverlaySecondGrid>
+        <ItemOverlayOptionBox>
           {equipment.option && equipment.option.basic
             ? EquipmentOptionBasic
             : null}
-        </EquipmentPartBox>
-        <EquipmentPartBox>
+        </ItemOverlayOptionBox>
+        <ItemOverlayOptionBox>
           {equipment.option && equipment.option.plus
             ? EquipmentOptionPlus
             : null}
           {equipment.option && equipment.option.reforgeBonus
             ? EquipmentReforgeBonus
             : null}
-        </EquipmentPartBox>
-        <EquipmentPartBox>
+        </ItemOverlayOptionBox>
+        <ItemOverlayOptionBox>
           {equipment.option && equipment.option.tripod
             ? EquipmentTripodList
             : null}
@@ -436,24 +352,24 @@ const EquipmentOverlay = (equipment: EquipmentList) => {
           {equipment.option && equipment.option.braceletEffects
             ? EquipmentBracletEffects
             : null}
-        </EquipmentPartBox>
-      </EquipmentSecondGrid>
+        </ItemOverlayOptionBox>
+      </ItemOverlaySecondGrid>
       {equipment.set ? (
         <EquipmentThirdGrid>
           {equipment.option?.esther ? (
             <>{EstherEffectList}</>
           ) : (
-            <EquipmentPartBox>
+            <ItemOverlayOptionBox>
               <p>{equipment.set.setEnableOverview}</p>
               <EquipmentSetEffectWrapper>
                 {EquipmentSetList}
               </EquipmentSetEffectWrapper>
-            </EquipmentPartBox>
+            </ItemOverlayOptionBox>
           )}
           {EquipmentSetEffectList}
         </EquipmentThirdGrid>
       ) : null}
-    </EquipmentOverlayBlock>
+    </ItemOverlayBlock>
   );
 };
 
