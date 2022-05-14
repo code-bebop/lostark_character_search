@@ -5,9 +5,9 @@ export interface JewelResponse extends BasicResponse {
 }
 
 export interface JewelListT {
-  name: string;
-  grade: string;
-  tier: string;
-  effect: string;
-  image: string;
+  name?: string;
+  grade?: string;
+  tier?: string;
+  effect?: string;
+  image?: string;
 }

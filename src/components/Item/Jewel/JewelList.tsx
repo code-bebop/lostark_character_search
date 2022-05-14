@@ -39,6 +39,20 @@ const JewelList = (data: JewelResponse) => {
         const { name, grade, image } = jewel;
         const rarity = getItemRarity(grade);
 
+        if (!name) {
+          return (
+            <JewelListBlock key={index}>
+              <EquipmentImageWrapper>
+                <JewelImage rarity={rarity} />
+                {showOverlay[index] && <JewelOverlay {...jewel} />}
+              </EquipmentImageWrapper>
+              <JewelName>
+                <EquipmentCategory>없음</EquipmentCategory>
+              </JewelName>
+            </JewelListBlock>
+          );
+        }
+
         return (
           <JewelListBlock key={index}>
             <EquipmentImageWrapper>

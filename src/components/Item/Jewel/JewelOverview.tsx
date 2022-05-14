@@ -46,7 +46,9 @@ const JewelEnableName = styled.p`
 const JewelOverview = (data: JewelResponse) => {
   const jewelEnableList = data.jewelList
     .map((jewel) => {
-      return jewel.effect.match(/(?<=]).+(?=피해|재사용)/gi);
+      return jewel.effect
+        ? jewel.effect.match(/(?<=]).+(?=피해|재사용)/gi)
+        : "";
     })
     .filter((v): v is RegExpMatchArray => v !== null)
     .map((v) => v[0])
@@ -58,6 +60,10 @@ const JewelOverview = (data: JewelResponse) => {
       <JewelEnableListWrapper key={index}>
         <JewelEnableName>{jewelEnable}</JewelEnableName>
         {data.jewelList.map((jewel, index) => {
+          if (!jewel.effect) {
+            return null;
+          }
+
           if (jewel.effect.includes(jewelEnable)) {
             return (
               <p key={index}>
