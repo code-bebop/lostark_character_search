@@ -9,6 +9,7 @@ export interface CardList {
   name: string;
   description: string;
   awake: Awake;
+  rarity: number;
   image: string;
 }
 

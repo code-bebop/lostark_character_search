@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import getItemRarity from "../../lib/getItemRarity";
 import { CardResponse } from "../../type/card";
 
 const CardListBlock = styled.div`
@@ -14,8 +15,24 @@ const CardBlock = styled.div`
   text-align: center;
 `;
 
-const CardImage = styled.img`
-  border: 2px solid ${({ theme }) => theme.mainTheme.color.white};
+const CardImage = styled.img<{ rarity: string }>`
+  border: 2px solid
+    ${({ theme, rarity }) => {
+      switch (rarity) {
+        case "일반":
+          return theme.mainTheme.color.rarity.common;
+        case "고급":
+          return theme.mainTheme.color.rarity.uncommon;
+        case "희귀":
+          return theme.mainTheme.color.rarity.rare;
+        case "영웅":
+          return theme.mainTheme.color.rarity.epic;
+        case "전설":
+          return theme.mainTheme.color.rarity.legendary;
+        default:
+          return theme.mainTheme.color.white;
+      }
+    }};
   border-radius: 10px;
   min-width: 140px;
   min-height: 240px;
@@ -29,20 +46,47 @@ const CardAwakeBlock = styled.div`
   width: 100%;
 `;
 
-const CardAwake = styled.div<{ isAwake: boolean }>`
+const CardAwake = styled.div<{ rarity: string; isAwake: boolean }>`
   width: 100%;
   padding-bottom: calc(100% - 4px);
-  background-color: ${({ isAwake, theme }) =>
-    isAwake
-      ? theme.mainTheme.color.rarity.legendary
-      : theme.mainTheme.color.white};
+  background-color: ${({ rarity, isAwake, theme }) => {
+    if (isAwake)
+      switch (rarity) {
+        case "일반":
+          return theme.mainTheme.color.rarity.common;
+        case "고급":
+          return theme.mainTheme.color.rarity.uncommon;
+        case "희귀":
+          return theme.mainTheme.color.rarity.rare;
+        case "영웅":
+          return theme.mainTheme.color.rarity.epic;
+        case "전설":
+          return theme.mainTheme.color.rarity.legendary;
+      }
+    return theme.mainTheme.color.default;
+  }};
   border: 2px solid ${({ theme }) => theme.mainTheme.color.white};
   border-radius: 5px;
 `;
 
-const CardName = styled.p`
+const CardName = styled.p<{ rarity: string }>`
   font: ${({ theme }) => theme.mainTheme.font.lead};
-  color: ${({ theme }) => theme.mainTheme.color.rarity.legendary};
+  color: ${({ theme, rarity }) => {
+    switch (rarity) {
+      case "일반":
+        return theme.mainTheme.color.rarity.common;
+      case "고급":
+        return theme.mainTheme.color.rarity.uncommon;
+      case "희귀":
+        return theme.mainTheme.color.rarity.rare;
+      case "영웅":
+        return theme.mainTheme.color.rarity.epic;
+      case "전설":
+        return theme.mainTheme.color.rarity.legendary;
+      default:
+        return theme.mainTheme.color.white;
+    }
+  }};
 `;
 
 const CardList = (data: CardResponse) => {
@@ -52,23 +96,26 @@ const CardList = (data: CardResponse) => {
         if (!card) {
           return (
             <CardBlock>
-              <CardImage />
+              <CardImage rarity="" />
             </CardBlock>
           );
         }
 
+        const rarity = getItemRarity(card.rarity);
+
         const CardAwakeList = [...Array(card.awake.total)].map((n, index) => {
           const isAwake = card.awake.count < index + 1 ? false : true;
-          return <CardAwake key={index} isAwake={isAwake} />;
+          return <CardAwake key={index} rarity={rarity} isAwake={isAwake} />;
         });
 
         return (
           <CardBlock key={index}>
             <CardImage
               src={`https://cdn-lostark.game.onstove.com/${card.image}`}
+              rarity={rarity}
             />
             <CardAwakeBlock>{CardAwakeList}</CardAwakeBlock>
-            <CardName>{card.name}</CardName>
+            <CardName rarity={rarity}>{card.name}</CardName>
           </CardBlock>
         );
       })}
