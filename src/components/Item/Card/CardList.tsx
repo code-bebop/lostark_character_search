@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import getItemRarity from "../../lib/getItemRarity";
-import { CardResponse } from "../../type/card";
+import getItemRarity from "../../../lib/getItemRarity";
+import { CardResponse } from "../../../type/card";
 
 const CardListBlock = styled.div`
   display: grid;

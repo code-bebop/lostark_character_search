@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { CardResponse } from "../../type/card";
+import { CardResponse } from "../../../type/card";
 
 const CardOverviewBlock = styled.div`
   width: 100%;

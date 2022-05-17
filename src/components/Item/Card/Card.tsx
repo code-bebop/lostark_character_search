@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import useProfileQuery from "../../hooks/useProfileQuery";
-import profileQueryAnalyzer from "../../lib/profileQueryAnalyzer";
-import { CardResponse } from "../../type/card";
+import useProfileQuery from "../../../hooks/useProfileQuery";
+import profileQueryAnalyzer from "../../../lib/profileQueryAnalyzer";
+import { CardResponse } from "../../../type/card";
 import CardList from "./CardList";
 import CardOverview from "./CardOverview";
 
