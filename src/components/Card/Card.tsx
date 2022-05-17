@@ -3,6 +3,7 @@ import useProfileQuery from "../../hooks/useProfileQuery";
 import profileQueryAnalyzer from "../../lib/profileQueryAnalyzer";
 import { CardResponse } from "../../type/card";
 import CardList from "./CardList";
+import CardOverview from "./CardOverview";
 
 const Card = () => {
   const location = useLocation();
@@ -18,6 +19,7 @@ const Card = () => {
   return (
     <>
       <CardList {...data} />
+      <CardOverview {...data} />
     </>
   );
 };
