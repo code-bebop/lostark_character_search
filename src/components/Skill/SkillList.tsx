@@ -6,6 +6,12 @@ const SkillListBlock = styled.div`
   padding: 35px 72px;
 `;
 
+const SkillError = styled.h2`
+  font: 900 36px Inter;
+  text-align: center;
+  margin-top: 150px;
+`;
+
 const SkillListItem = styled.div`
   width: 100%;
   border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
@@ -90,6 +96,10 @@ const SkillTripodItem = styled.p<{ order: number }>`
 `;
 
 const SkillList = (data: SkillResponse) => {
+  if (typeof data.skillList === "string") {
+    return <SkillError>사용할 수 있는 스킬이 없습니다.</SkillError>;
+  }
+
   return (
     <SkillListBlock>
       {data.skillList.map((skill, index) => {

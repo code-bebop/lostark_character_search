@@ -2,7 +2,7 @@ import { BasicResponse } from "./basicResponse";
 
 export interface SkillResponse extends BasicResponse {
   result: string;
-  skillList: SkillList[];
+  skillList: SkillList[] | string;
 }
 
 export interface SkillList {
