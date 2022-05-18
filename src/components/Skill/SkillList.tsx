@@ -25,13 +25,14 @@ const SkillOverview = styled.div`
 const SkillImage = styled.img`
   width: 64px;
   height: 64px;
+  border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
 `;
 
 const SkillName = styled.p`
   justify-self: center;
   align-self: center;
   font: ${({ theme }) => theme.mainTheme.font.lead};
-  color: ${({ theme }) => theme.mainTheme.color.rarity.legendary};
+  color: ${({ theme }) => theme.mainTheme.color.white};
 `;
 
 const SkillRune = styled.p<{ rarity: string }>`
@@ -103,7 +104,12 @@ const SkillList = (data: SkillResponse) => {
               <SkillImage
                 src={`https://cdn-lostark.game.onstove.com/${image}`}
               />
-              <SkillName>{name}</SkillName>
+              {selectedTripodList ? (
+                <SkillName>{`${name} Lv.${level}`}</SkillName>
+              ) : (
+                <SkillName>{`${name}`}</SkillName>
+              )}
+
               {rune && rune.name ? (
                 <SkillRune
                   rarity={runeRarity}
