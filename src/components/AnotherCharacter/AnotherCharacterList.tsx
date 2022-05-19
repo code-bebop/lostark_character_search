@@ -52,7 +52,7 @@ const CharacterListItem = styled.li`
 `;
 
 const CharacterName = styled.p`
-  font: bold 16px Inter;
+  font: bold 16px "IBMPlexSansKR-Regular";
 `;
 
 const CharacterLevel = styled.p`
