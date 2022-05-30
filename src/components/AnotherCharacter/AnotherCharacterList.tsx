@@ -43,7 +43,7 @@ const CharacterListItem = styled.li`
   grid-row-gap: 10px;
   border: 1px solid ${({ theme }) => theme.mainTheme.color.white};
   border-radius: 10px;
-  padding: 22px 0 22px 30px;
+  padding: 22px 0 22px 22px;
 
   &:hover {
     outline: 3px solid ${({ theme }) => theme.mainTheme.color.sub};
