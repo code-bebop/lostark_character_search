@@ -17,10 +17,10 @@ const mainTheme = {
     },
   },
   font: {
-    lead_24px: "bold 24px Inter",
-    lead: "bold 20px Inter",
-    body: "500 16px Inter",
-    body_14px: "500 14px Inter",
+    lead_24px: "bold 24px IBMPlexSansKR-Regular",
+    lead: "bold 20px IBMPlexSansKR-Regular",
+    body: "500 16px IBMPlexSansKR-Regular",
+    body_14px: "500 14px IBMPlexSansKR-Regular",
   },
 };
 
