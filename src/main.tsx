@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import Router from "./Router";
 import "./reset.css";
+import "./main.css";
 import { ThemeProvider } from "styled-components";
 import mainTheme from "./mainTheme";
 import { QueryClient, QueryClientProvider } from "react-query";
