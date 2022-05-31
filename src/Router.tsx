@@ -11,32 +11,22 @@ import Profile from "./components/Profile";
 import Skill from "./components/Skill/Skill";
 import { NicknameProvider } from "./context/nickname";
 
-const Background = styled.div`
-  width: 1080px;
-  min-height: 100vh;
-  padding-bottom: 70px;
-  margin: auto;
-  background-color: ${({ theme }) => theme.mainTheme.color.default};
-`;
-
 const Router = () => {
   return (
     <NicknameProvider>
-      <Background>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="profile" element={<Profile />}>
-            <Route path="item" element={<Item />}>
-              <Route path="equipment" element={<Equipment />} />
-              <Route path="avatar" element={<Avatar />} />
-              <Route path="jewel" element={<Jewel />} />
-              <Route path="card" element={<Card />} />
-            </Route>
-            <Route path="skill" element={<Skill />} />
-            <Route path="anotherCharacter" element={<AnotherCharacter />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="profile" element={<Profile />}>
+          <Route path="item" element={<Item />}>
+            <Route path="equipment" element={<Equipment />} />
+            <Route path="avatar" element={<Avatar />} />
+            <Route path="jewel" element={<Jewel />} />
+            <Route path="card" element={<Card />} />
           </Route>
-        </Routes>
-      </Background>
+          <Route path="skill" element={<Skill />} />
+          <Route path="anotherCharacter" element={<AnotherCharacter />} />
+        </Route>
+      </Routes>
     </NicknameProvider>
   );
 };
