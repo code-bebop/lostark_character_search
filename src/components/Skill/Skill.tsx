@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import useProfileQuery from "../../hooks/useProfileQuery";
 import profileQueryAnalyzer from "../../lib/profileQueryAnalyzer";
 import { SkillResponse } from "../../type/skill";
+import { ViewWrapper } from "../Common/ViewWrapper";
 import SkillList from "./SkillList";
 
 const Skill = () => {
@@ -16,9 +17,9 @@ const Skill = () => {
   }
 
   return (
-    <>
+    <ViewWrapper>
       <SkillList {...data} />
-    </>
+    </ViewWrapper>
   );
 };
 

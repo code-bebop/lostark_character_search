@@ -4,10 +4,11 @@ import styled from "styled-components";
 import useProfileQuery from "../../../hooks/useProfileQuery";
 import profileQueryAnalyzer from "../../../lib/profileQueryAnalyzer";
 import { JewelResponse } from "../../../type/jewel";
+import { ViewWrapper } from "../../Common/ViewWrapper";
 import JewelList from "./JewelList";
 import JewelOverview from "./JewelOverview";
 
-const JewelBlock = styled.div`
+const JewelBlock = styled(ViewWrapper)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;

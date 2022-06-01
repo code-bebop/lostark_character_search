@@ -58,10 +58,9 @@ const CharacterOverView = () => {
   }
   if (isError || data.result === "Error") {
     return (
-      <>
-        <p>에러 발생</p>
+      <CharacterOverViewBlock>
         <p>{data.result_error}</p>
-      </>
+      </CharacterOverViewBlock>
     );
   }
 
