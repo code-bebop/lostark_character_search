@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useNicknameState } from "../../context/nickname";
 import { InfoResponse } from "../../type/info";
 
 const CharacterOverViewBlock = styled.div`
@@ -26,9 +25,64 @@ const CharacterLevelList = styled.ul`
 
 const CharacterLevelItem = styled.li`
   list-style: none;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font: ${({ theme }) => theme.mainTheme.font.body};
 `;
+
+const CharacterInfoSkeleton = styled.p`
+  width: 320px;
+  height: 26px;
+  background-color: #272535;
+  border-radius: 10px;
+`;
+
+const CharacterLevelTitleSkeleton = styled.p`
+  width: 77px;
+  height: 19px;
+  background-color: #272535;
+  border-radius: 10px;
+`;
+
+const CharacterLevelContentSkeleton = styled(CharacterLevelTitleSkeleton)`
+  width: 52px;
+  margin-top: 10px;
+`;
+
+const CharacterLevelTitleSkeleton_2 = styled(CharacterLevelTitleSkeleton)`
+  width: 107px;
+`;
+
+const CharacterLevelContentSkeleton_2 = styled(CharacterLevelContentSkeleton)`
+  width: 75px;
+`;
+
+const CharacterOverviewSkeleton = () => {
+  return (
+    <CharacterOverViewBlock>
+      <CharacterInfoSkeleton />
+      <CharacterLevelList>
+        <CharacterLevelItem>
+          <CharacterLevelTitleSkeleton />
+          <CharacterLevelContentSkeleton />
+        </CharacterLevelItem>
+        <CharacterLevelItem>
+          <CharacterLevelTitleSkeleton />
+          <CharacterLevelContentSkeleton />
+        </CharacterLevelItem>
+        <CharacterLevelItem>
+          <CharacterLevelTitleSkeleton_2 />
+          <CharacterLevelContentSkeleton_2 />
+        </CharacterLevelItem>
+        <CharacterLevelItem>
+          <CharacterLevelTitleSkeleton_2 />
+          <CharacterLevelContentSkeleton_2 />
+        </CharacterLevelItem>
+      </CharacterLevelList>
+    </CharacterOverViewBlock>
+  );
+};
 
 const CharacterOverView = () => {
   const location = useLocation();
@@ -51,7 +105,7 @@ const CharacterOverView = () => {
   );
 
   if (isLoading) {
-    return <p>로딩 중 . . .</p>;
+    return <CharacterOverviewSkeleton />;
   }
   if (typeof data === "undefined") {
     return <p>데이터가 undefined인 상태입니다.</p>;
