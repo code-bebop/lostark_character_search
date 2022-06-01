@@ -10,7 +10,7 @@ const loading = keyframes`
   }
 `;
 
-const EquipmentSkeletonBlock = styled.div`
+const EquipmentBlockSkeleton = styled.div`
   height: 108px;
   background-color: #100f2a;
   border-radius: 10px;
@@ -21,7 +21,7 @@ const EquipmentSkeletonBlock = styled.div`
   }
 `;
 
-const EquipmentSkeletonCategory = styled.p`
+const EquipmentCategorySkeleton = styled.p`
   width: 9%;
   height: 20px;
   background-color: #272535;
@@ -30,7 +30,7 @@ const EquipmentSkeletonCategory = styled.p`
   animation: ${loading} 1s infinite alternate linear;
 `;
 
-const EquipmentSkeletonImage = styled.div`
+const EquipmentImageSkeleton = styled.div`
   width: 64px;
   height: 64px;
   background-color: #272535;
@@ -39,7 +39,7 @@ const EquipmentSkeletonImage = styled.div`
   animation: ${loading} 1s infinite alternate linear;
 `;
 
-const EquipmentSkeletonTitle = styled.p`
+const EquipmentTitleSkeleton = styled.p`
   width: 29%;
   height: 20px;
   margin-left: 90px;
@@ -48,7 +48,7 @@ const EquipmentSkeletonTitle = styled.p`
   animation: ${loading} 1s infinite alternate linear;
 `;
 
-const EquipmentSkeletonEngrave = styled.p`
+const EquipmentEngraveSkeleton = styled.p`
   height: 16px;
   margin-left: 85px;
   border-radius: 10px;
@@ -70,16 +70,16 @@ const EquipmentSkeletonEngrave = styled.p`
 
 const EquipmentSkeleton = () => {
   return (
-    <EquipmentSkeletonBlock>
-      <EquipmentSkeletonCategory />
-      <EquipmentSkeletonImage />
-      <EquipmentSkeletonTitle />
+    <EquipmentBlockSkeleton>
+      <EquipmentCategorySkeleton />
+      <EquipmentImageSkeleton />
+      <EquipmentTitleSkeleton />
       <div>
-        <EquipmentSkeletonEngrave />
-        <EquipmentSkeletonEngrave />
-        <EquipmentSkeletonEngrave />
+        <EquipmentEngraveSkeleton />
+        <EquipmentEngraveSkeleton />
+        <EquipmentEngraveSkeleton />
       </div>
-    </EquipmentSkeletonBlock>
+    </EquipmentBlockSkeleton>
   );
 };
 
