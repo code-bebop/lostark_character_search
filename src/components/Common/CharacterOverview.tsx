@@ -1,8 +1,18 @@
 import axios, { AxiosError } from "axios";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { InfoResponse } from "../../type/info";
+
+const loading = keyframes`
+  0% {
+    background-color: #272535;
+  }
+  50%,
+  100% {
+    background-color: #2E2B3F;
+  }
+`;
 
 const CharacterOverViewBlock = styled.div`
   display: flex;
@@ -36,6 +46,7 @@ const CharacterInfoSkeleton = styled.p`
   height: 26px;
   background-color: #272535;
   border-radius: 10px;
+  animation: ${loading} 1s infinite alternate linear;
 `;
 
 const CharacterLevelTitleSkeleton = styled.p`
@@ -43,6 +54,9 @@ const CharacterLevelTitleSkeleton = styled.p`
   height: 19px;
   background-color: #272535;
   border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  animation: ${loading} 1s infinite alternate linear;
 `;
 
 const CharacterLevelContentSkeleton = styled(CharacterLevelTitleSkeleton)`

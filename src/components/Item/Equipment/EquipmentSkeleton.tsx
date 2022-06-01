@@ -1,4 +1,14 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const loading = keyframes`
+  0% {
+    background-color: #272535;
+  }
+  50%,
+  100% {
+    background-color: #2E2B3F;
+  }
+`;
 
 const EquipmentSkeletonBlock = styled.div`
   height: 108px;
@@ -11,12 +21,22 @@ const EquipmentSkeletonBlock = styled.div`
   }
 `;
 
+const EquipmentSkeletonCategory = styled.p`
+  width: 9%;
+  height: 20px;
+  background-color: #272535;
+  border-radius: 10px;
+  margin-left: 22px;
+  animation: ${loading} 1s infinite alternate linear;
+`;
+
 const EquipmentSkeletonImage = styled.div`
   width: 64px;
   height: 64px;
   background-color: #272535;
   border-radius: 10px;
-  margin-left: calc(11% + 60px);
+  margin-left: 60px;
+  animation: ${loading} 1s infinite alternate linear;
 `;
 
 const EquipmentSkeletonTitle = styled.p`
@@ -25,6 +45,7 @@ const EquipmentSkeletonTitle = styled.p`
   margin-left: 90px;
   border-radius: 10px;
   background-color: #272535;
+  animation: ${loading} 1s infinite alternate linear;
 `;
 
 const EquipmentSkeletonEngrave = styled.p`
@@ -32,6 +53,7 @@ const EquipmentSkeletonEngrave = styled.p`
   margin-left: 85px;
   border-radius: 10px;
   background-color: #272535;
+  animation: ${loading} 1s infinite alternate linear;
   &:nth-child(1) {
     width: 220px;
   }
@@ -49,6 +71,7 @@ const EquipmentSkeletonEngrave = styled.p`
 const EquipmentSkeleton = () => {
   return (
     <EquipmentSkeletonBlock>
+      <EquipmentSkeletonCategory />
       <EquipmentSkeletonImage />
       <EquipmentSkeletonTitle />
       <div>
