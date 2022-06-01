@@ -1,8 +1,18 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-const EquipmentSkeletonBlock = styled.div`
+const loading = keyframes`
+  0% {
+    background-color: #272535;
+  }
+  50%,
+  100% {
+    background-color: #2E2B3F;
+  }
+`;
+
+const EquipmentBlockSkeleton = styled.div`
   height: 108px;
-  background-color: #100f2a;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.background};
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -11,27 +21,39 @@ const EquipmentSkeletonBlock = styled.div`
   }
 `;
 
-const EquipmentSkeletonImage = styled.div`
-  width: 64px;
-  height: 64px;
-  background-color: #272535;
+const EquipmentCategorySkeleton = styled.p`
+  width: 9%;
+  height: 20px;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
   border-radius: 10px;
-  margin-left: calc(11% + 60px);
+  margin-left: 22px;
+  animation: ${loading} 1s infinite alternate linear;
 `;
 
-const EquipmentSkeletonTitle = styled.p`
+const EquipmentImageSkeleton = styled.div`
+  width: 64px;
+  height: 64px;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
+  border-radius: 10px;
+  margin-left: 60px;
+  animation: ${loading} 1s infinite alternate linear;
+`;
+
+const EquipmentTitleSkeleton = styled.p`
   width: 29%;
   height: 20px;
   margin-left: 90px;
   border-radius: 10px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
+  animation: ${loading} 1s infinite alternate linear;
 `;
 
-const EquipmentSkeletonEngrave = styled.p`
+const EquipmentEngraveSkeleton = styled.p`
   height: 16px;
   margin-left: 85px;
   border-radius: 10px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
+  animation: ${loading} 1s infinite alternate linear;
   &:nth-child(1) {
     width: 220px;
   }
@@ -48,15 +70,16 @@ const EquipmentSkeletonEngrave = styled.p`
 
 const EquipmentSkeleton = () => {
   return (
-    <EquipmentSkeletonBlock>
-      <EquipmentSkeletonImage />
-      <EquipmentSkeletonTitle />
+    <EquipmentBlockSkeleton>
+      <EquipmentCategorySkeleton />
+      <EquipmentImageSkeleton />
+      <EquipmentTitleSkeleton />
       <div>
-        <EquipmentSkeletonEngrave />
-        <EquipmentSkeletonEngrave />
-        <EquipmentSkeletonEngrave />
+        <EquipmentEngraveSkeleton />
+        <EquipmentEngraveSkeleton />
+        <EquipmentEngraveSkeleton />
       </div>
-    </EquipmentSkeletonBlock>
+    </EquipmentBlockSkeleton>
   );
 };
 
