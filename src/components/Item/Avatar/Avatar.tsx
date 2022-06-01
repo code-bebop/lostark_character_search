@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import useProfileQuery from "../../../hooks/useProfileQuery";
 import profileQueryAnalyzer from "../../../lib/profileQueryAnalyzer";
 import { AvatarResponse } from "../../../type/avatar";
+import { ViewWrapper } from "../../Common/ViewWrapper";
 import AvatarList from "./AvatarList";
 
 const Avatar = () => {
@@ -16,9 +17,9 @@ const Avatar = () => {
   }
 
   return (
-    <>
+    <ViewWrapper>
       <AvatarList {...data} />
-    </>
+    </ViewWrapper>
   );
 };
 

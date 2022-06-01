@@ -15,7 +15,6 @@ const reducer = (
 ): NicknameState => {
   switch (action.type) {
     case "NICKNAME/UPDATE":
-      console.table(action);
       return { ...state, nickname: action.payload };
     default:
       throw new Error("invalid action type");

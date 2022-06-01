@@ -1,6 +1,14 @@
 import { AxiosError } from "axios";
 import { UseQueryResult } from "react-query";
+import styled from "styled-components";
+
+import { ViewWrapper } from "../components/Common/ViewWrapper";
 import { BasicResponse } from "../type/basicResponse";
+
+const ErrorWrapper = styled(ViewWrapper)`
+  margin: 270px auto 0;
+  text-align: center;
+`;
 
 function profileQueryAnalyzer<ResponseT extends BasicResponse>({
   data,
@@ -16,10 +24,9 @@ function profileQueryAnalyzer<ResponseT extends BasicResponse>({
   }
   if (isError || data.result === "Error") {
     return (
-      <>
-        <p>에러 발생</p>
+      <ErrorWrapper>
         <p>{data.result_error}</p>
-      </>
+      </ErrorWrapper>
     );
   }
 

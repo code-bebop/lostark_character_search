@@ -7,7 +7,6 @@ const SkillListBlock = styled.div`
 `;
 
 const SkillError = styled.h2`
-  font: 900 36px Inter;
   text-align: center;
   margin-top: 150px;
 `;

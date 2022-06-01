@@ -7,7 +7,7 @@ import Footer from "./Footer";
 
 const Background = styled.div`
   width: 1080px;
-  min-height: 100vh;
+  min-height: 1000px;
   padding-bottom: 70px;
   margin: auto;
   background-color: ${({ theme }) => theme.mainTheme.color.default};
