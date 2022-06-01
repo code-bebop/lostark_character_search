@@ -29,6 +29,8 @@ const CharacterSearchBar = () => {
     const { nickname: locationNickname } = location.state as {
       nickname: string;
     };
+
+    dispatch({ type: "NICKNAME/UPDATE", payload: locationNickname });
     setNickname(locationNickname);
   }, [location]);
   const dispatch = useNicknameDispatch();

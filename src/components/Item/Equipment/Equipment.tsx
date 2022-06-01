@@ -24,8 +24,8 @@ const Equipment = () => {
   if (profileQuery.isLoading) {
     return (
       <ViewWrapper>
-        {new Array(10).fill(0).map(() => {
-          return <EquipmentSkeleton />;
+        {new Array(10).fill(0).map((key) => {
+          return <EquipmentSkeleton key={key} />;
         })}
       </ViewWrapper>
     );
