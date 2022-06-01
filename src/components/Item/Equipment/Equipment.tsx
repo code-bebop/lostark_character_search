@@ -12,6 +12,7 @@ import EquipmentSkeleton from "./EquipmentSkeleton";
 const Equipment = () => {
   const location = useLocation();
   const { nickname } = location.state as { nickname: string };
+
   const profileQuery = useProfileQuery<EquipmentResponse>(
     "equipment",
     nickname
