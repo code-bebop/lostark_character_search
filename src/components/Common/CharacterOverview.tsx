@@ -44,7 +44,7 @@ const CharacterLevelItem = styled.li`
 const CharacterInfoSkeleton = styled.p`
   width: 320px;
   height: 26px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
   border-radius: 10px;
   animation: ${loading} 1s infinite alternate linear;
 `;
@@ -52,7 +52,7 @@ const CharacterInfoSkeleton = styled.p`
 const CharacterLevelTitleSkeleton = styled.p`
   width: 77px;
   height: 19px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
   border-radius: 10px;
   overflow: hidden;
   position: relative;

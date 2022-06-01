@@ -15,6 +15,10 @@ const mainTheme = {
       ancient: "#E3C7A1",
       esther: "#3CF2E6",
     },
+    skeleton: {
+      content: "#272535",
+      background: "#100f2a",
+    },
   },
   font: {
     lead_24px: "bold 24px IBMPlexSansKR-Regular",

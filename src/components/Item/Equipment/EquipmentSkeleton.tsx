@@ -12,7 +12,7 @@ const loading = keyframes`
 
 const EquipmentBlockSkeleton = styled.div`
   height: 108px;
-  background-color: #100f2a;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.background};
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -24,7 +24,7 @@ const EquipmentBlockSkeleton = styled.div`
 const EquipmentCategorySkeleton = styled.p`
   width: 9%;
   height: 20px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
   border-radius: 10px;
   margin-left: 22px;
   animation: ${loading} 1s infinite alternate linear;
@@ -33,7 +33,7 @@ const EquipmentCategorySkeleton = styled.p`
 const EquipmentImageSkeleton = styled.div`
   width: 64px;
   height: 64px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
   border-radius: 10px;
   margin-left: 60px;
   animation: ${loading} 1s infinite alternate linear;
@@ -44,7 +44,7 @@ const EquipmentTitleSkeleton = styled.p`
   height: 20px;
   margin-left: 90px;
   border-radius: 10px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
   animation: ${loading} 1s infinite alternate linear;
 `;
 
@@ -52,7 +52,7 @@ const EquipmentEngraveSkeleton = styled.p`
   height: 16px;
   margin-left: 85px;
   border-radius: 10px;
-  background-color: #272535;
+  background-color: ${({ theme }) => theme.mainTheme.color.skeleton.content};
   animation: ${loading} 1s infinite alternate linear;
   &:nth-child(1) {
     width: 220px;
