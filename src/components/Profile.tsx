@@ -6,6 +6,14 @@ import CharacterSearchBar from "./Common/ChracterSearchBar";
 import TabMenu from "./Common/TabMenu";
 import Footer from "./Footer";
 
+import backgroundImage from "/assets/bg_effect.png";
+
+const ProfileBlock = styled.div`
+  background-color: ${({ theme }) => theme.mainTheme.color.black};
+  background-image: url(${backgroundImage});
+  background-repeat: no-repeat;
+`;
+
 const Background = styled.div`
   width: 1080px;
   min-height: 1000px;
@@ -21,7 +29,7 @@ const Profile = () => {
   useAllProfileCache(nickname);
 
   return (
-    <>
+    <ProfileBlock>
       <Background>
         <CharacterSearchBar />
         <CharacterOverView />
@@ -29,7 +37,7 @@ const Profile = () => {
         <Outlet />
       </Background>
       <Footer />
-    </>
+    </ProfileBlock>
   );
 };
 
