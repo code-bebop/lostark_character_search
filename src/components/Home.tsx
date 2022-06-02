@@ -9,6 +9,7 @@ const HomeBlock = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: ${({ theme }) => theme.mainTheme.color.black};
 `;
 
 const Title = styled.h1`
