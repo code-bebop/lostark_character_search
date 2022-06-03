@@ -215,5 +215,7 @@ API 코드는 [lostark-API repository](https://github.com/code-bebop/lostark-API
 
 ### 디자인 레퍼런스
 [MGX 게임 데이터 플랫폼](https://www.mgx.kr/lostark/character/?character_name=%EB%AA%A8%EC%BD%94%EC%BD%94%EB%B3%BC%EB%94%B0%EA%B5%AC%EB%B9%A0%EB%8A%94%EC%86%8C%EB%A6%AC)
+
 [로스트아크 전투정보실](https://lostark.game.onstove.com/Profile/Character/%EB%AA%A8%EC%BD%94%EC%BD%94%EB%B3%BC%EB%94%B0%EA%B5%AC%EB%B9%A0%EB%8A%94%EC%86%8C%EB%A6%AC)
+
 [DUNDAM](https://dundam.xyz/view?image=8ae57807390e0cabfd74ab49c60c77bc&server=diregie&name=%EC%8B%9C%EC%98%A8%EC%9D%B4%EB%84%A4%EA%B2%80%EC%8B%A0)
