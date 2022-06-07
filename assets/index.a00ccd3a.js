@@ -625,7 +625,7 @@ Error generating stack: `+o.message+`
     color: ${({theme:e})=>e.mainTheme.color.white};
     box-shadow: inset 200px 0 0 0 ${({theme:e})=>e.mainTheme.color.sub};
   }
-`,Sw=()=>A(gw,{children:[h(Cw,{children:"(C) 2022. code-bebop"}),h(ww,{href:"https://code-bebop.github.io/real-portfolio/",target:"_blank",children:"\uD3EC\uD2B8\uD3F4\uB9AC\uC624 \uC0AC\uC774\uD2B8 \u2192"})]});var xw="/assets/bg_effect.png";const kw=E.div`
+`,Sw=()=>A(gw,{children:[h(Cw,{children:"(C) 2022. code-bebop"}),h(ww,{href:"https://code-bebop.github.io/real-portfolio/",target:"_blank",children:"\uD3EC\uD2B8\uD3F4\uB9AC\uC624 \uC0AC\uC774\uD2B8 \u2192"})]});var xw="/lostark_character_search/assets/bg_effect.png";const kw=E.div`
   background-color: ${({theme:e})=>e.mainTheme.color.black};
   background-image: url(${xw});
   background-repeat: no-repeat;
