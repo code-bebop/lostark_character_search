@@ -3,6 +3,9 @@
 빌드 도구로 webpack 대신 vite라는 라이브러리가 나왔다는데 그걸 한 번 써보고 싶었고, node.js 에서 웹크롤링을 하는 방법을 배워왔기 때문에 그것도 사용해보고 싶었다.
 그래서 이전에 만드려다가 포기한 아이템인 "로스트아크 캐릭터 검색" 프로젝트를 진행했다. 왜냐하면 로스트아크는 API를 지원하지 않기 때문이고, 이전에는 내가 웹크롤링에 대한 지식이 전무했기 때문이다.
 
+## 데모 사이트
+https://code-bebop.github.io/lostark_character_search/
+
 ## 디자인
 https://www.figma.com/file/Bo00fKXouaqKxNRHxpD4Vf/Lostark-API?node-id=0%3A1
 
